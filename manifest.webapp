@@ -1,0 +1,20 @@
+{
+	"name" : "Alfa Notas",
+	"version" : "0.1",
+	"description" : "Aplicativo para gestão de notas",
+	"launch_path" : "/index.html",
+	"permissions" : {
+		"storage" : {
+			"description" : "Necessário para armazenar e acessar notas."
+		}
+	},
+	"developer" : {
+		"name" : "Led Labs",
+		"url" : "http://www.ledlabs.com.br"
+	},
+	"icons" : {
+		"60" : "/assets/img/alfanotas_60.jpg",
+		"128" : "/assets/img/alfanotas_128.jpg"
+	}
+    "default_locale": "pt-BR"
+}

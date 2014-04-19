@@ -1,0 +1,226 @@
+/**********************************************************
+ * RESET
+ *********************************************************/
+* {
+    margin:0;
+    padding:0;
+    list-style:none;
+    vertical-align:baseline;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/**********************************************************
+ * GERAL
+ *********************************************************/
+html, body {
+	background:#F0F0F0;
+	font-family: helvetica;
+    width: 100%;
+    height: 100%;
+}
+.clear {
+	clear:both;
+}
+
+/**********************************************************
+ * TITULO
+ *********************************************************/
+.apptitle {
+	line-height: 2em;
+	font-size: 1.6em;
+	color: #FFF;
+	background: #DA0000;
+	margin: 0;
+	padding: 0.1em 0.5em 0.1em 35px;
+    cursor: pointer;
+}
+.apptitle:before {
+	border: 27px solid transparent;
+	border-left-color: #FFF;
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+}
+/**********************************************************
+ * FORMULÁRIO
+ *********************************************************/
+.form-inline{
+	margin: 5px 2%;
+}
+.form-inline input{
+	border: 1px solid  #5A6A7A;
+	padding: 0.5em;
+	width: 75%;
+	float:left;
+	line-height: 1em;
+	font-size: 1em;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.form-inline button{
+	border: 1px solid  #5A6A7A;
+	background: #1CAF9A;
+	color:#FFF;
+	padding: 0.5em;
+	width: 23%;
+	float:right;
+	line-height: 0.1em;
+	font-size: 2em;
+	font-weight: bold;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+/**********************************************************
+ * ITEMS
+ *********************************************************/
+.items {
+	list-style: none;
+	line-height: 2em;
+	font-size: 1.2em;
+	padding: 0;
+	background: #1D2939;
+    color:#FFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin: 5px 2%;
+}
+.items input.nota {
+	display: none;
+	border: 1px solid  #5A6A7A;
+	padding: 0.5em;
+}
+.items span.close {
+	display: block;
+	float: right;
+	margin: 0;
+    padding: 0 0.4em;
+    color: #F00;
+    background: #FFC8C8; 
+	cursor: pointer;
+}
+.items .title {
+	width: 90%;
+	display: block;
+	padding: 0 5%;
+}
+.items li {
+	width: 100%;
+	margin: 0.5em 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.items li:hover {
+	background: #DAEEEE;
+    color: #000;
+}
+.items a:hover, .items a:hover  {
+	text-decoration: none;
+}
+.items input {
+	display: none;
+}
+.items input:checked ~ .subitems  li {
+	display: block;
+}
+/**********************************************************
+ * SUBITEMS
+ *********************************************************/
+.subitems {
+	margin: 0;
+	padding: 0;
+}
+.subitems span {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	margin: 10px;
+	background: #5A6A7A;
+	color: #FFF;
+	font-size: 1em;
+	line-height: 2em;
+	text-align: center;
+	cursor: pointer;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	text-transform: uppercase;
+}
+.subitems li {
+	width: 100%;
+	list-style: none;
+	display: none;
+}
+.subitems li:hover {
+	background: #7E90A8;
+}
+.calc {
+    background: repeating-linear-gradient(
+                  45deg,
+                  rgba(0, 0, 0, 0.2),
+                  rgba(0, 0, 0, 0.2) 10px,
+                  rgba(0, 0, 0, 0.1) 10px,
+                  rgba(0, 0, 0, 0.1) 20px
+                );
+}
+/**********************************************************
+ * VISÕES
+ *********************************************************/
+#listItens{
+    width: 100%;
+    height: 100%;
+}
+#menu{
+    width: 100%;
+    height: 100%;
+    background: #FFC8C8;
+    text-align: center;
+    line-height: 2em;
+    font-size: 3em;
+}
+#menu li {
+    border-bottom: 5px dashed #FFF;
+    color: #FF8080;
+}
+#menu li:hover {
+    border-bottom: 5px solid #FFF;
+    cursor: pointer;
+    color: #F00;
+}
+#sobre{
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    background: #F1F1F1;
+}
+#sobre span{
+    display: block;
+    background-color: #1CAF9A;
+    color: #FFF;
+    width: 100px;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+/**********************************************************
+ * MEDIA QUERY
+ *********************************************************/
+@media (min-width: 600px) {
+    body {
+        width: 600px;
+        margin: 0 auto;
+    }
+    .apptitle:before {
+        display: none;
+    }
+    .apptitle {
+        border-left: 30px solid #FFF
+    }
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR" ng-app="almobile">
+<head>
+	<meta charset="UTF-8">
+    <!-- Title -->
+	<title>Alfa Notas</title>
+    <!-- Icon -->
+    <link rel="shortcut icon" href="assets/img/alfanotas_128.jpg" type="image/x-icon" />
+    <!-- Style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+    <!-- JavaScript -->
+	<script	src="assets/js/angular.min.js"></script>
+	<script	src="assets/js/app.js"></script>
+	<script	src="assets/js/controller.js"></script>
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Led Labs" />
+    <meta name="description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
+                                             das Faculdades Alfa."/>
+    <meta name="keywords" content="Led Labs, Faculdades Alfa, Alfa, Perimetral Norte, Faculdade, Alves Faria,
+                                   Centro Educacional, FADISP, ledlabs, Sheldon Led, sheldonled, app, aplicativo,
+                                   calcular média, software livre, User experience, usabilidade, padrões web, front-end" />
+    <!-- Facebook -->
+    <meta property="og:title" content="Alfa Notas - Led Labs"/>
+    <meta property="og:site_name" content="Alfa Notas - Led Labs Tecnologia"/>
+    <meta property="og:url" content="http://alfanotas.ledlabs.com.br"/>
+    <meta property="og:image" content="assets/img/alfanotas_128.jpg"/>
+    <meta property="og:type" content="app"/>
+    <meta property="og:description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
+                                             das Faculdades Alfa."/>
+</head>
+<body ng-controller="TheController" ng-init="init()" ng-switch="wkflow">
+    <!-- Título superior -->
+	<h1 class="apptitle" ng-click="toggleMenu()">Alfa Notas</h1>
+    <!-- Visão da Lista de Disciplinas -->
+	<div id="listItens" ng-switch-when="disciplinas">
+        <!-- Add Disciplina -->
+		<form class="form-inline" ng-controller="TheController">
+			<input type="text" ng-bind="novadisc" ng-model="novadisc">
+			<button ng-click="addItem()">+</button>
+		</form>
+		<div class="clear"></div>
+        <!-- Lista de Disciplinas -->
+		<ul class="items" ng-repeat="item in itens">
+			<li id="item{{$index}}">
+                <!-- Botão de excluir disciplina -->
+				<span class="close" id="cl{{$index}}" ng-click="delete($index)">X</span>
+				<input type="checkbox" id="chk{{$index}}" ng-click="select($index)">
+				<label class="title" for="chk{{$index}}">{{item.disciplina}}</label>
+				<ul class="subitems">
+					<li ng-click="setNota('n1',$index)" ng-class="{ calc: item.n1.calc }">
+						<span id="spn1{{$index}}">N1</span>
+						<label id="lbn1{{$index}}" for="n1{{$index}}">{{item.n1.value}}</label>
+						<input min="0" max="10" id="ipn1{{$index}}" class="nota" type="number" ng-bind="item.n1.value" ng-model="item.n1.value">
+					</li>
+					<li ng-click="setNota('n2',$index)" ng-class="{ calc:item.n2.calc }">
+						<span id="spn2{{$index}}">N2</span>
+						<label id="lbn2{{$index}}" for="n2{{$index}}">{{item.n2.value}}</label>
+						<input min="0" max="10" id="ipn2{{$index}}" class="nota" type="number" ng-bind="item.n2.value" ng-model="item.n2.value">
+					</li>
+					<li ng-click="setNota('n3',$index)" ng-class="{ calc: item.n3.calc }">
+						<span id="spn3{{$index}}">N3</span>
+						<label id="lbn3{{$index}}" for="n3{{$index}}">{{item.n3.value}}</label>
+						<input min="0" max="10" id="ipn3{{$index}}" class="nota" type="number" ng-bind="item.n3.value" ng-model="item.n3.value">
+					</li>
+					<li ng-click="setNota('n4',$index)" ng-class="{ calc: item.n4.calc }">
+						<span id="spn4{{$index}}">N4</span>
+						<label id="lbn4{{$index}}" for="n4{{$index}}">{{item.n4.value}}</label>
+						<input min="0" max="10" id="ipn4{{$index}}" class="nota" type="number" ng-bind="item.n4.value" ng-model="item.n4.value">
+					</li>
+					<li ng-show="item.status != ''">{{item.status}}</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+    <!-- Visão Menu -->
+	<div id="menu" ng-switch-when="menu">
+        <ul>
+            <li ng-click="changeView('disciplinas')">Disciplinas</li>
+            <li ng-click="changeView('sobre')">Sobre</li>
+        </ul>
+    </div>
+    <!-- Visão Sobre o App -->
+    <div id="sobre" ng-switch-when="sobre">
+        <span ng-click="changeView('disciplinas')">&lt;&lt;Voltar</span>
+        <h3>Alfa Notas</h3>
+    <p>Alfa Notas é um aplicativo desenvolvido pela <a href="http://www.ledlabs.com.br">Led Labs</a>, que facilita o cálculo de média para alunos das Faculdades Alfa.</p>
+        <h3>Led Labs</h3>
+        <p>Led Labs é uma empresa de desenvolvimento web e mobile, criada e mantida por <a href="http://sheldonled.com">Sheldon Led</a>.</p>
+        <h3>Feed Back</h3>
+        <p>Qualquer comentário que possa servir de melhoria para esse aplicativo pode ser enviado para <a href="mailto:sheldonled.ms@gmail.com">sheldonled.ms@gmail.com</a></p>
+    </div>
+</body>
+</html>
