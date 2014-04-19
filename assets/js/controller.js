@@ -170,7 +170,7 @@ almobile.controller('TheController', ['$scope', function($scope) {
                             $scope.itens[i].status = "Aprovado";
                         } else if($scope.itens[i].n3.value == 0) {
                         /* Se o aluno não fez N3*/
-                            $scope.itens[i].n3.value = (18-(n12));
+                            $scope.itens[i].n3.value = (18-(n12)).toFixed(2);
                             $scope.itens[i].n3.calc = true;
                             $scope.itens[i].status = "Não desanime, a N3 te espera";
                             if ($scope.itens[i].n3.value > 10) {
@@ -186,10 +186,6 @@ almobile.controller('TheController', ['$scope', function($scope) {
                             if(total >=18) {
                                 $scope.itens[i].status = "Aprovado";
                             } else if($scope.itens[i].n4.value > 0) {
-                        /* Se o aluno não fez N4*/
-                                $scope.itens[i].n4.value = (12 -(total/3)).toFixed(2);
-                                $scope.itens[i].n4.calc = true;
-                            } else {
                         /* Se o aluno já fez N4*/
                                 total = ((total/3)+$scope.itens[i].n4.value).toFixed(2);
                                 if(total > 6) {
@@ -197,6 +193,11 @@ almobile.controller('TheController', ['$scope', function($scope) {
                                 } else {
                                     $scope.itens[i].status = "Reprovado";
                                 }
+                            } else {
+                        /* Se o aluno não fez N4*/
+                                $scope.itens[i].n4.value = (12 -(total/3)).toFixed(2);
+                                $scope.itens[i].n4.calc = true;
+                                $scope.itens[i].status = "Estude! Você não escapa da N4";
                             }
                         }
                     }
@@ -215,11 +216,12 @@ almobile.controller('TheController', ['$scope', function($scope) {
                 }
             }
 		}
+        prepVar(false,true);
     }
     /**
      * Prepara as notas para edição ou cálculo
      */
-    var prepVar = function(limpa){
+    var prepVar = function(limpa,fixa){
         /*Preparando variáveis*/
         for(i=0; i<$scope.itens.length;i++){
             for (j=1;j<5;j++){
@@ -227,7 +229,7 @@ almobile.controller('TheController', ['$scope', function($scope) {
                     $scope.itens[i]['n'+j].value = 0;
                     $scope.itens[i]['n'+j].calc = false;
                 } else {
-                    if(limpa){
+                    if(fixa){
                         $scope.itens[i]['n'+j].value = isNaN(parseFloat($scope.itens[i]['n'+j].value)) ? 0 : parseFloat($scope.itens[i]['n'+j].value).toFixed(2);
                     } else {
                         $scope.itens[i]['n'+j].value = isNaN(parseFloat($scope.itens[i]['n'+j].value)) ? 0 : parseFloat($scope.itens[i]['n'+j].value);

@@ -15,6 +15,6 @@
 	"icons" : {
 		"60" : "/assets/img/alfanotas_60.jpg",
 		"128" : "/assets/img/alfanotas_128.jpg"
-	}
+	},
     "default_locale": "pt-BR"
 }
