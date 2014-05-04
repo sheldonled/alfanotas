@@ -15,11 +15,16 @@
 /**********************************************************
  * GERAL
  *********************************************************/
+html {
+    height: 100%;
+}
 html, body {
 	background:#F0F0F0;
 	font-family: helvetica;
+    margin: 0;
+    min-width: 320px;
     width: 100%;
-    height: 100%;
+    position: relative;
 }
 .clear {
 	clear:both;
@@ -32,18 +37,14 @@ html, body {
 	line-height: 2em;
 	font-size: 1.6em;
 	color: #FFF;
-	background: #DA0000;
+    background-image: url(../img/menu.png);
+    background-repeat: no-repeat;
+    background-size: 50px;
+    background-position: 5px;
+	background-color: #DA0000;
 	margin: 0;
-	padding: 0.1em 0.5em 0.1em 35px;
+	padding: 0.1em 0.5em 0.1em 3em;
     cursor: pointer;
-}
-.apptitle:before {
-	border: 27px solid transparent;
-	border-left-color: #FFF;
-	position: absolute;
-	content: "";
-	top: 0;
-	left: 0;
 }
 /**********************************************************
  * FORMULÁRIO
@@ -118,7 +119,7 @@ html, body {
 	border-radius: 10px;
 }
 .items li:hover {
-	background: #DAEEEE;
+	background: #FFF5F5;
     color: #000;
 }
 .items a:hover, .items a:hover  {
@@ -162,6 +163,7 @@ html, body {
 	background: #7E90A8;
 }
 .calc {
+    background-color: #CCC;
     background: repeating-linear-gradient(
                   45deg,
                   rgba(0, 0, 0, 0.2),
@@ -208,19 +210,4 @@ html, body {
     padding: 5px 20px;
     margin-bottom: 10px;
     cursor: pointer;
-}
-/**********************************************************
- * MEDIA QUERY
- *********************************************************/
-@media (min-width: 600px) {
-    body {
-        width: 600px;
-        margin: 0 auto;
-    }
-    .apptitle:before {
-        display: none;
-    }
-    .apptitle {
-        border-left: 30px solid #FFF
-    }
 }

@@ -5,12 +5,13 @@
     <!-- Title -->
 	<title>Alfa Notas</title>
     <!-- Icon -->
-    <link rel="shortcut icon" href="assets/img/alfanotas_128.jpg" type="image/x-icon" />
+    <link rel="shortcut icon" href="assets/img/alfanotas_128.png" type="image/x-icon" />
     <!-- Style -->
 	<link rel="stylesheet" href="assets/css/main.css">
     <!-- JavaScript -->
 	<script	src="assets/js/angular.min.js"></script>
 	<script	src="assets/js/app.js"></script>
+	<script	src="assets/js/model.js"></script>
 	<script	src="assets/js/controller.js"></script>
     <!-- Meta -->
     <meta charset="utf-8" />
@@ -26,7 +27,7 @@
     <meta property="og:title" content="Alfa Notas - Led Labs"/>
     <meta property="og:site_name" content="Alfa Notas - Led Labs Tecnologia"/>
     <meta property="og:url" content="http://alfanotas.ledlabs.com.br"/>
-    <meta property="og:image" content="assets/img/alfanotas_128.jpg"/>
+    <meta property="og:image" content="assets/img/alfanotas_128.png"/>
     <meta property="og:type" content="app"/>
     <meta property="og:description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
                                              das Faculdades Alfa."/>
@@ -43,29 +44,29 @@
 		</form>
 		<div class="clear"></div>
         <!-- Lista de Disciplinas -->
-		<ul class="items" ng-repeat="item in itens">
+		<ul class="items" ng-repeat="item in itens track by $index">
 			<li id="item{{$index}}">
                 <!-- Botão de excluir disciplina -->
-				<span class="close" id="cl{{$index}}" ng-click="delete($index)">X</span>
+				<span class="close" id="cl{{$index}}" ng-click="delete($index, item.id)">X</span>
 				<input type="checkbox" id="chk{{$index}}" ng-click="select($index)">
 				<label class="title" for="chk{{$index}}">{{item.disciplina}}</label>
 				<ul class="subitems">
-					<li ng-click="setNota('n1',$index)" ng-class="{ calc: item.n1.calc }">
+					<li ng-click="setNota('n1',$index, item.id)" ng-class="{ calc: item.n1.calc }">
 						<span id="spn1{{$index}}">N1</span>
 						<label id="lbn1{{$index}}" for="n1{{$index}}">{{item.n1.value}}</label>
 						<input min="0" max="10" id="ipn1{{$index}}" class="nota" type="number" ng-bind="item.n1.value" ng-model="item.n1.value">
 					</li>
-					<li ng-click="setNota('n2',$index)" ng-class="{ calc:item.n2.calc }">
+					<li ng-click="setNota('n2',$index, item.id)" ng-class="{ calc:item.n2.calc }">
 						<span id="spn2{{$index}}">N2</span>
 						<label id="lbn2{{$index}}" for="n2{{$index}}">{{item.n2.value}}</label>
 						<input min="0" max="10" id="ipn2{{$index}}" class="nota" type="number" ng-bind="item.n2.value" ng-model="item.n2.value">
 					</li>
-					<li ng-click="setNota('n3',$index)" ng-class="{ calc: item.n3.calc }">
+					<li ng-click="setNota('n3',$index, item.id)" ng-class="{ calc: item.n3.calc }">
 						<span id="spn3{{$index}}">N3</span>
 						<label id="lbn3{{$index}}" for="n3{{$index}}">{{item.n3.value}}</label>
 						<input min="0" max="10" id="ipn3{{$index}}" class="nota" type="number" ng-bind="item.n3.value" ng-model="item.n3.value">
 					</li>
-					<li ng-click="setNota('n4',$index)" ng-class="{ calc: item.n4.calc }">
+					<li ng-click="setNota('n4',$index, item.id)" ng-class="{ calc: item.n4.calc }">
 						<span id="spn4{{$index}}">N4</span>
 						<label id="lbn4{{$index}}" for="n4{{$index}}">{{item.n4.value}}</label>
 						<input min="0" max="10" id="ipn4{{$index}}" class="nota" type="number" ng-bind="item.n4.value" ng-model="item.n4.value">

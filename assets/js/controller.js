@@ -1,60 +1,39 @@
 /**
+ * App
+ */
+var almobile = angular.module('almobile',[]);
+
+/**
  * Controller do App
  */
-almobile.controller('TheController', ['$scope', function($scope) {
+function TheController ($scope, $timeout) {
+    var db = new MyDB();
     /**
      * Inicia as configurações
      */
     $scope.init = function(){
         $scope.trava = false;
         $scope.wkflow = "disciplinas";
-    	$scope.itens = [
-	        {
-                disciplina: 'Português', 
-                n1: {
-                    value: 2,
-                    calc: false,
-                }, 
-                n2: {
-                    value: 0,
-                    calc: false,
-                }, 
-                n3: {
-                    value: 0,
-                    calc: false,
-                }, 
-                n4: {
-                    value: 0,
-                    calc: false,
-                },
-                status: ''
-            },
-	        {
-                disciplina: 'Metodologia Científica', 
-                n1: {
-                    value: 6,
-                    calc: false,
-                }, 
-                n2:  {
-                    value: 8,
-                    calc: false,
-                }, 
-                n3:  {
-                    value: 0,
-                    calc: false,
-                },
-                n4:  {
-                    value: 0,
-                    calc: false,
-                },
-                status : ''
-            }
-	    ];
+        $timeout($scope.refreshList, 400);
     };
+    
+    
+    $scope.refreshList = function(){
+        $scope.itens = [];
+        db.listAll(function (err, value) {
+            $scope.itens.push(value);
+        });
+        $timeout(list, 200);
+        //Ainda não sei porque, mas o bind só acontece se eu fizer esse timeout
+        function list() {
+            console.log("OK");
+        }
+    }
     /**
      * Abre e fecha o menu do aplicativo
      */
     $scope.toggleMenu = function(){
+        console.log(angular.element(document.querySelector( '#menu' )));
         if($scope.wkflow == "menu"){
             $scope.changeView("disciplinas");
         } else {
@@ -72,11 +51,11 @@ almobile.controller('TheController', ['$scope', function($scope) {
      */
     $scope.select = function(i){
         elem = document.getElementById("item"+i);
-    	if (elem.style.backgroundColor == "rgb(218, 238, 238)"){
+    	if (elem.style.backgroundColor == "rgb(255, 245, 245)"){
     		elem.style.backgroundColor = '#1D2939';
     		elem.style.color = '#FFF';
     	} else {
-    		elem.style.backgroundColor = '#DAEEEE';
+    		elem.style.backgroundColor = '#FFF5F5';
     		elem.style.color = '#000';
     	}
     };
@@ -100,6 +79,8 @@ almobile.controller('TheController', ['$scope', function($scope) {
 			elemlb.style.display = "inline-block";
 			$scope.calcula();
             $scope.trava = false;
+            console.log($scope.itens[id]);
+            db.save($scope.itens[id]);
 		} else {
             if (!$scope.trava){
                 prepVar(true);
@@ -117,7 +98,7 @@ almobile.controller('TheController', ['$scope', function($scope) {
      */
     $scope.addItem = function(){
         if($scope.novadisc.length > 1) {
-            $scope.itens.push({
+            var newItem = {
                     disciplina: $scope.novadisc, 
                     n1: {
                         value: 0,
@@ -136,14 +117,26 @@ almobile.controller('TheController', ['$scope', function($scope) {
                         calc: false,
                     },
                     status : ''
-                });
+                };
+            db.save(newItem, function(error, result){
+                $scope.novadisc = "";
+                $scope.itens.push(result);
+                $timeout(list, 200);
+                //Ainda não sei porque, mas o bind só acontece se eu fizer esse timeout
+                function list() {
+                    console.log("OK");
+                }
+            });
         }
     }
     /**
      * Deleta disciplina
      */
-    $scope.delete = function(id){
-    	$scope.itens.splice(id,1);
+    $scope.delete = function(id, key){
+    	//$scope.itens.splice(id,1);
+        db.del(key, function(){
+            $timeout($scope.refreshList, 200);
+        });
     }
     /**
      * Calcula os valores das notas;
@@ -175,7 +168,8 @@ almobile.controller('TheController', ['$scope', function($scope) {
                             $scope.itens[i].status = "Não desanime, a N3 te espera";
                             if ($scope.itens[i].n3.value > 10) {
                                 $scope.itens[i].n3.value = (10).toFixed(2);
-                                total = n12+$scope.itens[i].n3.value;
+                                total = n12+10;
+                                console.log(total);
                                 $scope.itens[i].n4.value = (12 -(total/3)).toFixed(2);
                                 $scope.itens[i].n4.calc = true;
                                 $scope.itens[i].status = "Estude! Você não escapa da N4";
@@ -187,7 +181,7 @@ almobile.controller('TheController', ['$scope', function($scope) {
                                 $scope.itens[i].status = "Aprovado";
                             } else if($scope.itens[i].n4.value > 0) {
                         /* Se o aluno já fez N4*/
-                                total = ((total/3)+$scope.itens[i].n4.value).toFixed(2);
+                                total = (((total/3)+$scope.itens[i].n4.value)/2).toFixed(2);
                                 if(total > 6) {
                                     $scope.itens[i].status = "Aprovado";
                                 } else {
@@ -238,4 +232,4 @@ almobile.controller('TheController', ['$scope', function($scope) {
             }
         }
     };
-}]);
+}

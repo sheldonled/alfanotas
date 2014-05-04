@@ -1,6 +1,6 @@
 {
 	"name" : "Alfa Notas",
-	"version" : "0.1",
+	"version" : "1.0",
 	"description" : "Aplicativo para gestão de notas",
 	"launch_path" : "/index.html",
 	"permissions" : {
@@ -13,8 +13,8 @@
 		"url" : "http://www.ledlabs.com.br"
 	},
 	"icons" : {
-		"60" : "/assets/img/alfanotas_60.jpg",
-		"128" : "/assets/img/alfanotas_128.jpg"
+		"60" : "/assets/img/alfanotas_60.png",
+		"128" : "/assets/img/alfanotas_128.png"
 	},
     "default_locale": "pt-BR"
 }

@@ -1,90 +1,182 @@
-var dbName = "minds";
-var dbVersion = 1;
-
-var db;
-var request = indexedDB.open(dbName, dbVersion);
-
-request.onerror = function(event){
-	console.log("Não foi possível abrir o banco de dados", event);
-};
-
-request.onsuccess = function(event){
-	console.log("Conexão com o banco OK!");
-	db = event.target.result;
-};
-
-request.onupgradeneeded = function(event){
-	console.log("OnUpgradeNeeded");
-	db = event.target.result;
-	if(!db.objectStoreNames.contains("minds")) {
-		console.log("Criando objectStore para minds");
-
-		var objectStore = db.createObjectStore("minds", {
-			keyPath: "id",
-			autoIncrement: true
-		});
-		objectStore.createIndex("title", "title", {
-			unique:false
-		});
-		console.log("Adicionando exemplo de nota");
-		var sampleMemo1 = new Memo();
-		sampleMemo1.title = "Bem vindo!";
-		sampleMemo1.content = "Este é um aplicativo de anotações. Use o '+' para adicionar uma anotação" +
-		"e clique em uma anotação para editá-la, (ou apagá-la). Todas as anotações são salvas automaticamente";
-		objectStore.add(sampleMemo1);
-	}
-}
-
-function Memo() {
-	this.title = "Nota sem Título";
-	this.content = "";
-	this.created = Date.now();
-	this.modified = Date.now();
-}
-
-function listAllMemoTitles(inCallback) {
-	var objectStore = db.transaction("minds").objectStore("minds");
-	console.log("listando notas...");
-
-	objectStore.openCursor().onsuccess = function(event) {
-		var cursor = event.target.result;
-		if(cursor) {
-			console.log("Encontrada nota #" + cursor.value.id + " - " + cursor.value.title);
-			inCallback(null, cursor.value);
-			cursor.continue();
-		}
-	}
-}
-
-function saveMemo(inMemo, inCallback) {
-	var transaction = db.transaction(["minds"], "readwrite");
-	console.log("Salvando a nota");
-	transaction.oncomplete = function(event){
-		console.log("Pronto!");
-	};
-	transaction.onerror = function(event) {
-		console.error("Erro ao salvar nota: ", event);
-		inCallback({
-			error : event
-		}, null);
-	};
-
-	var objectStore = transaction.objectStore("minds");
-
-	inMemo.modified = Date.now();
-
-	var request = objectStore.put(inMemo);
-	request.onsuccess = function(event){
-		console.log("Nota salva com id:" + request.result);
-		inCallback(null, request.result);
-	};
-}
-
-function deleteMemo(inId, inCallback) {
-	console.log("Apagando nota");
-    var request = db.transaction(["minds"], "readwrite").objectStore("minds").delete(inId);
-    request.onsuccess = function (event) {
-        console.log("Nota apagada!");
-        inCallback();
+/**
+ * Classe para controlar IndeedDB
+ */
+function MyDB(){
+    //Onde tiver 'alfanotas' substituir pelo nome do seu banco
+    var db,
+        request = indexedDB.open("alfanotas", 1);
+    
+    /**
+     * Testa se o banco já foi iniciado
+     */
+    this.dbOk = function() {
+        //Ter certeza de retornar booleano
+        return !(!db);
     };
+    
+    /**
+     * Mostra mensagem de erro
+     */
+    request.onerror = function(event) {
+      // Alerta de erro
+      alert("Database error: " + event.target.errorCode);
+    };
+    
+    /**
+     * Testa se o banco já foi iniciado
+     */
+    request.onsuccess = function(event){
+        console.log("Conexão OK!");
+        db = event.target.result;
+    };
+    
+    /**
+     * Faz configurações iniciais do banco
+     */
+    request.onupgradeneeded = function(event){
+        console.log("Criando/Atualizando Banco");
+        db = event.target.result;
+        
+        /**
+         * Criando objectStore para alfanotas
+         */
+        var objectStore = db.createObjectStore("alfanotas", {
+            keyPath: "id",
+            autoIncrement: true
+        });
+        
+        //Criando o índice
+        objectStore.createIndex("disciplina", "disciplina", {
+            unique:false
+        });
+        
+        //Criando exemplos de disciplina
+        var exemplos = [
+	        {
+                disciplina: 'Estatística', 
+                n1: {
+                    value: 2,
+                    calc: false,
+                }, 
+                n2: {
+                    value: 0,
+                    calc: false,
+                }, 
+                n3: {
+                    value: 0,
+                    calc: false,
+                }, 
+                n4: {
+                    value: 0,
+                    calc: false,
+                },
+                status: '',
+                created: Date.now(),
+                modified: Date.now()
+            },
+	        {
+                disciplina: 'Metodologia Científica', 
+                n1: {
+                    value: 6,
+                    calc: false,
+                }, 
+                n2:  {
+                    value: 8,
+                    calc: false,
+                }, 
+                n3:  {
+                    value: 0,
+                    calc: false,
+                },
+                n4:  {
+                    value: 0,
+                    calc: false,
+                },
+                status : '',
+                created: Date.now(),
+                modified: Date.now()
+            }
+	    ];
+        
+        //Adicionando exemplos criados
+        objectStore.transaction.oncomplete = function(event) {
+            // Armazenando valores no novo objectStore.
+            var discObjectStore = db.transaction("alfanotas", "readwrite").objectStore("alfanotas");
+            for (var i in exemplos) {
+                discObjectStore.add(exemplos[i]);
+            }
+        };
+    };
+
+    /**
+     * Lista todos os registros, chamando o callback para cada registro
+     * PS: Bom para fazer array.push
+     */
+    this.listAll = function (inCallback) {
+        var objectStore = db.transaction("alfanotas").objectStore("alfanotas");
+        console.log("listando...");
+
+        objectStore.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+            if(cursor) {
+                if (inCallback != undefined){
+                    inCallback(null, cursor.value);
+                }
+                cursor.continue();
+            }
+        }
+    }
+
+    /**
+     * Salva o registro no banco
+     */
+    this.save = function (theObject, inCallback) {
+        //abre a transação
+        var transaction = db.transaction(["alfanotas"], "readwrite");
+        //alerta quando a transação for completa
+        transaction.oncomplete = function(event){
+            console.log("Pronto!");
+        };
+        //alera para erros
+        transaction.onerror = function(event) {
+            console.error("Erro ao salvar: ", event);
+            if (inCallback != undefined) {
+                inCallback({
+                    error : event
+                }, null);
+            }
+        };
+        var objectStore = transaction.objectStore("alfanotas");
+        if (!theObject.created) {
+            theObject.created = Date.now();
+        }
+        theObject.modified = Date.now();
+        
+        //Adicionando o registro
+        var request = objectStore.put(theObject);
+        request.onsuccess = function(event){
+            console.log("Salvando com id:" + request.result);
+            if(inCallback != undefined){
+                objectStore.get(request.result).onsuccess = function(event) {
+                    inCallback(null, event.target.result);
+                };
+            }
+        };
+    }
+    
+    /**
+     * Deleta o registro
+     */
+    this.del = function (theId, inCallback) {
+        console.log("Apagando");
+        //Criando a transação
+        var request = db.transaction(["alfanotas"], "readwrite").objectStore("alfanotas").delete(theId);
+        //Retornando mensagem de sucesso
+        request.onsuccess = function (event) {
+            console.log("Objeto Apagado!");
+            if (inCallback != undefined){
+                inCallback();
+            }
+        };
+    }
 }
