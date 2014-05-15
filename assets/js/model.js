@@ -3,9 +3,8 @@
  */
 function MyDB(){
     //Onde tiver 'alfanotas' substituir pelo nome do seu banco
-    idb = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
     var db,
-        request = idb.open("alfanotas", 1);
+        request = indexedDB.open("alfanotas", 1);
     
     /**
      * Testa se o banco já foi iniciado

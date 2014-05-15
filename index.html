@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="assets/css/main.css">
     <!-- JavaScript -->
 	<script	src="assets/js/angular.min.js"></script>
-	<script	src="assets/js/app.js"></script>
+	<script	src="assets/js/IndexedDBShim.min.js"></script>
 	<script	src="assets/js/model.js"></script>
 	<script	src="assets/js/controller.js"></script>
     <!-- Meta -->
@@ -31,6 +31,9 @@
     <meta property="og:type" content="app"/>
     <meta property="og:description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
                                              das Faculdades Alfa."/>
+    <script>
+        window.shimIndexedDB.__useShim();
+    </script>
 </head>
 <body ng-controller="TheController" ng-init="init()" ng-switch="wkflow">
     <!-- Título superior -->
