@@ -236,6 +236,7 @@ function TheController ($scope, $timeout) {
                 if($scope.itens[i]['n'+j].calc && limpa){
                     $scope.itens[i]['n'+j].value = 0;
                     $scope.itens[i]['n'+j].calc = 0;
+                    $scope.itens[i]['status'] = '';
                 } else {
                     if(fixa){
                         $scope.itens[i]['n'+j].value = isNaN(parseFloat($scope.itens[i]['n'+j].value)) ? 0 : parseFloat($scope.itens[i]['n'+j].value).toFixed(2);
