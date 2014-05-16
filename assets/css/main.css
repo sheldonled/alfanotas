@@ -87,7 +87,7 @@ html, body {
 	display: none;
 	border: 1px solid  #5A6A7A;
 	padding: 0.5em;
-    width: 50px;
+    width: 20%;
 }
 .items span.close {
 	display: block;
