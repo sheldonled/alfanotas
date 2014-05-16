@@ -7,7 +7,9 @@ var almobile = angular.module('almobile',[]);
  * Controller do App
  */
 function TheController ($scope, $timeout) {
-    var db = new MyDB();
+    var db  = new MySqlDB();
+        db.init();
+    
     /**
      * Inicia as configurações
      */
@@ -18,6 +20,9 @@ function TheController ($scope, $timeout) {
     };
     
     
+    /**
+     * Atualiza a lista de disciplinas
+     */
     $scope.refreshList = function(){
         $scope.itens = [];
         db.listAll(function (err, value) {
@@ -47,19 +52,6 @@ function TheController ($scope, $timeout) {
         $scope.wkflow = w;
     };
     /**
-     * Seleciona uma disciplina para colocar as notas
-     */
-    $scope.select = function(i){
-        elem = document.getElementById("item"+i);
-    	if (elem.style.backgroundColor == "rgb(255, 245, 245)"){
-    		elem.style.backgroundColor = '#1D2939';
-    		elem.style.color = '#FFF';
-    	} else {
-    		elem.style.backgroundColor = '#FFF5F5';
-    		elem.style.color = '#000';
-    	}
-    };
-    /**
      * Faz o Toggle da nota para o modo de edição
      */
     $scope.setNota = function(nota, id){
@@ -79,7 +71,6 @@ function TheController ($scope, $timeout) {
 			elemlb.style.display = "inline-block";
 			$scope.calcula();
             $scope.trava = false;
-            console.log($scope.itens[id]);
             db.save($scope.itens[id]);
 		} else {
             if (!$scope.trava){
@@ -93,6 +84,7 @@ function TheController ($scope, $timeout) {
 			elemlb.style.display = "none";
 		}
     };
+    
     /**
      * Adiciona uma nova disciplina
      */
@@ -129,6 +121,27 @@ function TheController ($scope, $timeout) {
             });
         }
     }
+    
+    
+    /**
+     * Mostra disciplina
+     */
+    $scope.show = function(id){
+        var i=0,
+        elms = document.querySelectorAll("#item"+id+" .subitems li");
+        block = (elms[0].style.display == "block");
+        
+        elem = document.getElementById("item"+id);
+    	if (elem.style.backgroundColor == "rgb(255, 245, 245)"){
+    		elem.style.backgroundColor = '#A8A8A8';
+    	} else {
+    		elem.style.backgroundColor = '#FFF5F5';
+    	}
+         for(i=0;i<elms.length;i++) {
+            elms[i].style.display = ((block) ? "none" : "block");
+         }
+    }
+    
     /**
      * Deleta disciplina
      */
@@ -138,6 +151,7 @@ function TheController ($scope, $timeout) {
             $timeout($scope.refreshList, 200);
         });
     }
+    
     /**
      * Calcula os valores das notas;
      */
@@ -164,14 +178,14 @@ function TheController ($scope, $timeout) {
                         } else if($scope.itens[i].n3.value == 0) {
                         /* Se o aluno não fez N3*/
                             $scope.itens[i].n3.value = (18-(n12)).toFixed(2);
-                            $scope.itens[i].n3.calc = true;
+                            $scope.itens[i].n3.calc = 1;
                             $scope.itens[i].status = "Não desanime, a N3 te espera";
                             if ($scope.itens[i].n3.value > 10) {
                                 $scope.itens[i].n3.value = (10).toFixed(2);
                                 total = n12+10;
                                 console.log(total);
                                 $scope.itens[i].n4.value = (12 -(total/3)).toFixed(2);
-                                $scope.itens[i].n4.calc = true;
+                                $scope.itens[i].n4.calc = 1;
                                 $scope.itens[i].status = "Estude! Você não escapa da N4";
                             }
                         } else if($scope.itens[i].n3.value >0 && $scope.itens[i].n3.value < 10) {
@@ -190,7 +204,7 @@ function TheController ($scope, $timeout) {
                             } else {
                         /* Se o aluno não fez N4*/
                                 $scope.itens[i].n4.value = (12 -(total/3)).toFixed(2);
-                                $scope.itens[i].n4.calc = true;
+                                $scope.itens[i].n4.calc = 1;
                                 $scope.itens[i].status = "Estude! Você não escapa da N4";
                             }
                         }
@@ -200,10 +214,10 @@ function TheController ($scope, $timeout) {
                     $scope.itens[i].n4.value = 0;
                     $scope.itens[i].n3.value = 0;
                     $scope.itens[i].n2.value = (16 - $scope.itens[i].n1.value).toFixed(2);
-                    $scope.itens[i].n2.calc = true;
+                    $scope.itens[i].n2.calc = 1;
                     if ($scope.itens[i].n2.value > 10) {
                         $scope.itens[i].n3.value = ($scope.itens[i].n2.value - 8).toFixed(2);
-                        $scope.itens[i].n3.calc = true;
+                        $scope.itens[i].n3.calc = 1;
                         $scope.itens[i].n2.value = (10).toFixed(2);
                         $scope.itens[i].status = "Não desanime, a N3 te espera";
                     }
@@ -221,7 +235,7 @@ function TheController ($scope, $timeout) {
             for (j=1;j<5;j++){
                 if($scope.itens[i]['n'+j].calc && limpa){
                     $scope.itens[i]['n'+j].value = 0;
-                    $scope.itens[i]['n'+j].calc = false;
+                    $scope.itens[i]['n'+j].calc = 0;
                 } else {
                     if(fixa){
                         $scope.itens[i]['n'+j].value = isNaN(parseFloat($scope.itens[i]['n'+j].value)) ? 0 : parseFloat($scope.itens[i]['n'+j].value).toFixed(2);

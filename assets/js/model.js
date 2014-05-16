@@ -2,9 +2,10 @@
  * Classe para controlar IndeedDB
  */
 function MyDB(){
+    idb = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
     //Onde tiver 'alfanotas' substituir pelo nome do seu banco
     var db,
-        request = indexedDB.open("alfanotas", 1);
+        request = idb.open("alfanotas", 1);
     
     /**
      * Testa se o banco já foi iniciado

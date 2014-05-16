@@ -3,8 +3,6 @@ alfanotas
 
 Alfa Notas é um aplicativo que facilita o cálculo de média para alunos das Faculdades Alfa.
 
-==Regras:==
-
 * Introdução
 
 Existem 4 provas no método de avaliação das faculdades Alfa, nomeadas por N# onde # é a ordem delas. A N1 e N2 são as obrigatórias, onde a média de aprovação é 8,0 e a média mínima para não reprovação é 3.

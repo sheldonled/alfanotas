@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="assets/css/main.css">
     <!-- JavaScript -->
 	<script	src="assets/js/angular.min.js"></script>
-	<script	src="assets/js/IndexedDBShim.min.js"></script>
 	<script	src="assets/js/model.js"></script>
+	<script	src="assets/js/sqlmodel.js"></script>
 	<script	src="assets/js/controller.js"></script>
     <!-- Meta -->
     <meta charset="utf-8" />
@@ -31,9 +31,6 @@
     <meta property="og:type" content="app"/>
     <meta property="og:description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
                                              das Faculdades Alfa."/>
-    <script>
-        window.shimIndexedDB.__useShim();
-    </script>
 </head>
 <body ng-controller="TheController" ng-init="init()" ng-switch="wkflow">
     <!-- Título superior -->
@@ -51,8 +48,7 @@
 			<li id="item{{$index}}">
                 <!-- Botão de excluir disciplina -->
 				<span class="close" id="cl{{$index}}" ng-click="delete($index, item.id)">X</span>
-				<input type="checkbox" id="chk{{$index}}" ng-click="select($index)">
-				<label class="title" for="chk{{$index}}">{{item.disciplina}}</label>
+				<span class="title" id="title{{$index}}"  ng-click="show($index)">{{item.disciplina}}</span>
 				<ul class="subitems">
 					<li ng-click="setNota('n1',$index, item.id)" ng-class="{ calc: item.n1.calc }">
 						<span id="spn1{{$index}}">N1</span>
