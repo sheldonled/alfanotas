@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns		= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		= "br.com.ledlabs.alfanotas"
+	version 	= "1.5">
+
+	<name>Alfa Notas</name>
+
+	<description>
+		Um aplicativo para facilitar o cálculo de notas e médias dos alunos das faculdades Alfa
+	</description>
+
+	<author href="http://www.ledlabs.com.br"
+		email="sheldonled.ms@gmail.com">
+		Led Labs
+	</author>
+
+    <icon src="assets/img/icon.png" />
+	<icon src="assets/img/icon.png" gap:role="default" />
+
+	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/device"/>
+    <preference name="fullscreen"  value="true" />
+	<preference name="orientation" value="portrait" />
+</widget>
