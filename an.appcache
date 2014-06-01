@@ -1,0 +1,8 @@
+CACHE MANIFEST
+# 2014-05-01 v1.0.0
+index.html
+assets/img/alfanotas_128.png
+assets/js/angular.min.js
+assets/js/model.js
+assets/js/sqlmodel.js
+assets/js/controller.js
