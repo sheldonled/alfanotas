@@ -31,6 +31,19 @@
     <meta property="og:type" content="app"/>
     <meta property="og:description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
                                              das Faculdades Alfa."/>
+<script>
+function fxos(){
+var installapp = navigator.mozApps.install('http://alfanotas.ledlabs.com.br/manifest.webapp');
+
+installapp.onsuccess = function(data) {
+	alert("Instalado");
+};
+
+installapp.onerror = function() {
+	alert(installapp.error.name);
+};
+}
+</script>
 </head>
 <body ng-controller="TheController" ng-init="init()" ng-switch="wkflow">
     <!-- Título superior -->
@@ -80,6 +93,7 @@
         <ul>
             <li ng-click="changeView('disciplinas')">Disciplinas</li>
             <li ng-click="changeView('sobre')">Sobre</li>
+            <li onclick="fxos()"> Instalar no Firefox OS</li>
         </ul>
     </div>
     <!-- Visão Sobre o App -->

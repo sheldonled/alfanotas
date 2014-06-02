@@ -7,8 +7,13 @@ var almobile = angular.module('almobile',[]);
  * Controller do App
  */
 function TheController ($scope, $timeout) {
-    var db  = new MySqlDB();
+    var db;
+    if ( window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB) {
+        db = new MyDB();
+    } else {
+        db  = new MySqlDB();
         db.init();
+    }
     
     /**
      * Inicia as configurações
