@@ -66,22 +66,22 @@ installapp.onerror = function() {
 					<li ng-click="setNota('n1',$index, item.id)" ng-class="{ calc: item.n1.calc }">
 						<span id="spn1{{$index}}">N1</span>
 						<label id="lbn1{{$index}}" for="n1{{$index}}">{{item.n1.value}}</label>
-						<input min="0" max="10" id="ipn1{{$index}}" class="nota" type="number" ng-bind="item.n1.value" ng-model="item.n1.value">
+						<input min="0" max="10" id="ipn1{{$index}}" class="nota" type="number" is-number ng-bind="item.n1.value" ng-model="item.n1.value">
 					</li>
 					<li ng-click="setNota('n2',$index, item.id)" ng-class="{ calc:item.n2.calc }">
 						<span id="spn2{{$index}}">N2</span>
 						<label id="lbn2{{$index}}" for="n2{{$index}}">{{item.n2.value}}</label>
-						<input min="0" max="10" id="ipn2{{$index}}" class="nota" type="number" ng-bind="item.n2.value" ng-model="item.n2.value">
+						<input min="0" max="10" id="ipn2{{$index}}" class="nota" type="number" is-number ng-bind="item.n2.value" ng-model="item.n2.value">
 					</li>
 					<li ng-click="setNota('n3',$index, item.id)" ng-class="{ calc: item.n3.calc }">
 						<span id="spn3{{$index}}">N3</span>
 						<label id="lbn3{{$index}}" for="n3{{$index}}">{{item.n3.value}}</label>
-						<input min="0" max="10" id="ipn3{{$index}}" class="nota" type="number" ng-bind="item.n3.value" ng-model="item.n3.value">
+						<input min="0" max="10" id="ipn3{{$index}}" class="nota" type="number" is-number ng-bind="item.n3.value" ng-model="item.n3.value">
 					</li>
 					<li ng-click="setNota('n4',$index, item.id)" ng-class="{ calc: item.n4.calc }">
 						<span id="spn4{{$index}}">N4</span>
 						<label id="lbn4{{$index}}" for="n4{{$index}}">{{item.n4.value}}</label>
-						<input min="0" max="10" id="ipn4{{$index}}" class="nota" type="number" ng-bind="item.n4.value" ng-model="item.n4.value">
+						<input min="0" max="10" id="ipn4{{$index}}" class="nota" type="number" is-number ng-bind="item.n4.value" ng-model="item.n4.value">
 					</li>
 					<li ng-show="item.status != ''">{{item.status}}</li>
 				</ul>
