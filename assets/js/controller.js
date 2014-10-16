@@ -4,24 +4,6 @@
 var almobile = angular.module('almobile',[]);
 
 /**
- * Diretiva que troca vírgula por ponto em números decimais
- */
-almobile.directive('isNumber', function () {
-	return {
-		require: 'ngModel',
-		link: function (scope) {	
-		scope.$watch('wks.number', function(newValue,oldValue) {
-                var num = "";
-                num = newValue;
-                num = num.replace(",",".");
-                scope.inputValue = num;
-            });
-		}
-	};
-});
-
-
-/**
  * Controller do App
  */
 function TheController ($scope, $timeout) {
@@ -89,6 +71,7 @@ function TheController ($scope, $timeout) {
 		     elements[i].style.display = "none";
 		}
 		if(elemsp.textContent == "OK" && document.activeElement.getAttribute("id") != "ip"+nota+id){
+		$scope.itens[id][nota].value = elemip.value.replace(",",".");
 	    	elemsp.textContent = nota;
 	    	elemsp.style.background = '#5A6A7A';
 			elemlb.style.display = "inline-block";
