@@ -54,6 +54,7 @@ function TheController ($scope, $timeout) {
      * Muda a visão atual
      */
     $scope.changeView = function(w){
+	$scope.refreshList();
         $scope.wkflow = w;
     };
     /**
@@ -75,9 +76,9 @@ function TheController ($scope, $timeout) {
 	    	elemsp.textContent = nota;
 	    	elemsp.style.background = '#5A6A7A';
 			elemlb.style.display = "inline-block";
-			$scope.calcula();
-            $scope.trava = false;
-            db.save($scope.itens[id]);
+		        $scope.calcula();
+            		$scope.trava = false;
+            		db.save($scope.itens[id]);
 		} else {
             if (!$scope.trava){
                 prepVar(true);
