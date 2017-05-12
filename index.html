@@ -1,110 +1,73 @@
-<!doctype html>
-<html lang="pt-BR" manifest="an.appcache" ng-app="almobile">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-    <!-- Title -->
-	<title>Alfa Notas</title>
-    <!-- Icon -->
-    <link rel="shortcut icon" href="assets/img/alfanotas_128.png" type="image/x-icon" />
-    <!-- Style -->
-	<link rel="stylesheet" href="assets/css/main.css">
-    <!-- JavaScript -->
-	<script	src="assets/js/angular.min.js"></script>
-	<script	src="assets/js/model.js"></script>
-	<script	src="assets/js/sqlmodel.js"></script>
-	<script	src="assets/js/controller.js"></script>
-    <!-- Meta -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="author" content="Led Labs" />
-    <meta name="description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
-                                             das Faculdades Alfa."/>
-    <meta name="keywords" content="Led Labs, Faculdades Alfa, Alfa, Perimetral Norte, Faculdade, Alves Faria,
-                                   Centro Educacional, FADISP, ledlabs, Sheldon Led, sheldonled, app, aplicativo,
-                                   calcular média, software livre, User experience, usabilidade, padrões web, front-end" />
-    <!-- Facebook -->
-    <meta property="og:title" content="Alfa Notas - Led Labs"/>
-    <meta property="og:site_name" content="Alfa Notas - Led Labs Tecnologia"/>
-    <meta property="og:url" content="http://alfanotas.ledlabs.com.br"/>
-    <meta property="og:image" content="assets/img/alfanotas_128.png"/>
-    <meta property="og:type" content="app"/>
-    <meta property="og:description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos
-                                             das Faculdades Alfa."/>
-<script>
-function fxos(){
-var installapp = navigator.mozApps.install('http://alfanotas.ledlabs.com.br/manifest.webapp');
-
-installapp.onsuccess = function(data) {
-	alert("Instalado");
-};
-
-installapp.onerror = function() {
-	alert(installapp.error.name);
-};
-}
-</script>
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="Sheldon Led" />
+  <meta name="description" content="Alfa Notas é um aplicativo que facilita o cálculo de média para alunos da UniAlfa Goiânia."/>
+  <meta name="keywords" content="UniAlfa, Faculdades Alfa, Alfa, Perimetral Norte, Faculdade, Alves Faria,
+                                  Centro Educacional, FADISP, ledlabs, Sheldon Led, sheldonled, app, aplicativo,
+                                  calcular média, software livre" />
+  <!-- Title -->
+  <title>Alfa Notas</title>
+  <!-- Icon -->
+  <link rel="shortcut icon" href="img/alfanotas_128.png" type="image/x-icon" />
+  <!-- Style -->
+  <link rel="stylesheet" href="dist/css/style.min.css">
 </head>
-<body ng-controller="TheController" ng-init="init()" ng-switch="wkflow">
-    <!-- Título superior -->
-	<h1 class="apptitle" ng-click="toggleMenu()">Alfa Notas</h1>
-    <!-- Visão da Lista de Disciplinas -->
-	<div id="listItens" ng-switch-when="disciplinas">
-        <!-- Add Disciplina -->
-		<form class="form-inline" ng-controller="TheController">
-			<input type="text" ng-bind="novadisc" ng-model="novadisc">
-			<button ng-click="addItem()">+</button>
-		</form>
-		<div class="clear"></div>
-        <!-- Lista de Disciplinas -->
-		<ul class="items" ng-repeat="item in itens track by $index">
-			<li id="item{{$index}}">
-                <!-- Botão de excluir disciplina -->
-				<span class="close" id="cl{{$index}}" ng-click="delete($index, item.id)">X</span>
-				<span class="title" id="title{{$index}}"  ng-click="show($index)">{{item.disciplina}}</span>
-				<ul class="subitems">
-					<li ng-click="setNota('n1',$index, item.id)" ng-class="{ calc: item.n1.calc }">
-						<span id="spn1{{$index}}">N1</span>
-						<label id="lbn1{{$index}}" for="n1{{$index}}">{{item.n1.value}}</label>
-						<input min="0" max="10" id="ipn1{{$index}}" class="nota" type="number" ng-bind="item.n1.value" ng-model="item.n1.value">
-					</li>
-					<li ng-click="setNota('n2',$index, item.id)" ng-class="{ calc:item.n2.calc }">
-						<span id="spn2{{$index}}">N2</span>
-						<label id="lbn2{{$index}}" for="n2{{$index}}">{{item.n2.value}}</label>
-						<input min="0" max="10" id="ipn2{{$index}}" class="nota" type="number" ng-bind="item.n2.value" ng-model="item.n2.value">
-					</li>
-					<li ng-click="setNota('n3',$index, item.id)" ng-class="{ calc: item.n3.calc }">
-						<span id="spn3{{$index}}">N3</span>
-						<label id="lbn3{{$index}}" for="n3{{$index}}">{{item.n3.value}}</label>
-						<input min="0" max="10" id="ipn3{{$index}}" class="nota" type="number" ng-bind="item.n3.value" ng-model="item.n3.value">
-					</li>
-					<li ng-click="setNota('n4',$index, item.id)" ng-class="{ calc: item.n4.calc }">
-						<span id="spn4{{$index}}">N4</span>
-						<label id="lbn4{{$index}}" for="n4{{$index}}">{{item.n4.value}}</label>
-						<input min="0" max="10" id="ipn4{{$index}}" class="nota" type="number" ng-bind="item.n4.value" ng-model="item.n4.value">
-					</li>
-					<li ng-show="item.status != ''">{{item.status}}</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-    <!-- Visão Menu -->
-	<div id="menu" ng-switch-when="menu">
-        <ul>
-            <li ng-click="changeView('disciplinas')">Disciplinas</li>
-            <li ng-click="changeView('sobre')">Sobre</li>
-            <li onclick="fxos()"> Instalar no Firefox OS</li>
+<body>
+  <h1 class="app-title">Alfa Notas</h1>
+  <div class="input-group">
+    <input class="input-group-field app-bar-subject" type="text" data-bind="textInput: subjectBar">
+    <span class="input-group-label app-button-plus" data-bind="click: addSubject">+</span>
+  </div>
+  <div class="app-views">
+    <ul class="app-list-view main-view" data-bind="foreach:subjects">
+      <li class="app-list-items" data-bind="css:'item-'+$index()">
+        <span class="app-list-item-name" data-bind="text:name,click:function(){$root.toggleDetailView($index())}"></span>
+        <ul class="app-list-item-content" data-bind="visible: viewOpened">
+          <li>
+            <span class="app-list-item-content-title">N1:</span>
+            <span class="app-list-item-content-text" data-bind="text:n1() || '&nbsp;'"></span></li>
+          <li>
+            <span class="app-list-item-content-title">N2:</span>
+            <span class="app-list-item-content-text" data-bind="text:n2() || '&nbsp;'"></span></li>
+          <li>
+            <span class="app-list-item-content-title">N3:</span>
+            <span class="app-list-item-content-text" data-bind="text:n3() || '&nbsp;'"></span></li>
+          <li>
+            <span class="app-list-item-content-title">N4:</span>
+            <span class="app-list-item-content-text" data-bind="text:n4() || '&nbsp;'"></span></li>
+          <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.editSubject($index())}">Editar</li>
         </ul>
+      </li>
+    </ul>
+    <div class="app-list-view edit-view" data-bind="with:editSubj">
+      <span class="app-list-item-name" data-bind="text:name"></span>
+      <ul class="app-list-item-content">
+        <li>
+          <span class="app-list-item-content-title">N1:</span>
+          <input class="app-list-item-content-text" type="text" data-bind="value:n1"></input></li>
+        <li>
+          <span class="app-list-item-content-title">N2:</span>
+          <input class="app-list-item-content-text" type="text" data-bind="value:n2"></input></li>
+        <li>
+          <span class="app-list-item-content-title">N3:</span>
+          <input class="app-list-item-content-text" type="text" data-bind="value:n3"></input></li>
+        <li>
+          <span class="app-list-item-content-title">N4:</span>
+          <input class="app-list-item-content-text" type="text" data-bind="value:n4"></input></li>
+        <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.cancelEdit()}">Voltar</li>
+        <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.saveEdit()}">Salvar</li>
+        <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.deleteSubject()}">Deletar</li>
+      </ul>
     </div>
-    <!-- Visão Sobre o App -->
-    <div id="sobre" ng-switch-when="sobre">
-        <span ng-click="changeView('disciplinas')">&lt;&lt;Voltar</span>
-        <h3>Alfa Notas</h3>
-    <p>Alfa Notas é um aplicativo desenvolvido pela <a target="_blank" href="http://www.ledlabs.com.br">Led Labs</a>, que facilita o cálculo de média para alunos das Faculdades Alfa.</p>
-        <h3>Led Labs</h3>
-        <p>Led Labs é uma empresa de desenvolvimento web e mobile, criada e mantida por <a target="_blank" href="http://sheldonled.com">Sheldon Led</a>.</p>
-        <h3>Feed Back</h3>
-        <p>Qualquer comentário que possa servir de melhoria para esse aplicativo pode ser enviado para <a target="_blank" href="mailto:sheldonled.ms@gmail.com">sheldonled.ms@gmail.com</a></p>
-    </div>
+    <div class="clear"></div>
+  </div>
 </body>
+<!-- JavaScript -->
+<script src='bower_components/knockout/dist/knockout.js'></script>
+<script src='dist/js/app.js'></script>
 </html>

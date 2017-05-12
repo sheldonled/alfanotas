@@ -1,0 +1,41 @@
+{
+  "name": "alfanotas",
+  "version": "2.0.0",
+  "description": "Stores the grads of a student at UniAlfa(Goiania) and says if they'll need a retake test",
+  "main": "index.html",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheldonled/alfanotas.git"
+  },
+  "keywords": [
+    "alfanotas",
+    "alfa",
+    "goiania",
+    "unialfa",
+    "alfa.br",
+    "notas"
+  ],
+  "author": "Sheldon Led <sheldonled.ms@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/sheldonled/alfanotas/issues"
+  },
+  "homepage": "https://github.com/sheldonled/alfanotas#readme",
+  "devDependencies": {
+    "babel-preset-es2015-without-strict": "0.0.4",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0",
+    "grunt-webpack": "^2.0.1",
+    "load-grunt-tasks": "^3.5.2",
+    "mocha": "^3.2.0",
+    "webpack": "^2.2.1"
+  }
+}

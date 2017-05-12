@@ -1,0 +1,102 @@
+@import '../../bower_components/foundation-sites/assets/foundation';
+/********************************* Variables ************************************/
+$font-stack:    Helvetica, sans-serif;
+$bgcolor: #fbfbfb;
+$grey: #333;
+$grey-lighter: #dadada;
+$light-grey: #AAA;
+$green: #1CAF9A;
+$green-darker: #1B9E89;
+$red: #DA0000;
+$blue: #5A6A7A;
+$blue-lighter:#7E90A8;
+
+/********************************* Mixins ************************************/
+@mixin transitions($time) {
+  -webkit-transition: all $time linear;
+  -moz-transition: all $time linear;
+  -o-transition: all $time linear;
+  transition: all $time linear;
+}
+/********************************* Variables ************************************/
+body,html {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: $bgcolor;
+}
+.clear {
+  clear:both;
+}
+.app-title {
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  background-color: red;
+  margin: 0;
+}
+.app-button-plus {
+  background: $green;
+  border: 1px solid $green-darker;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.app-views {
+  width:200%;
+  position: relative;
+  left:0;
+  @include transitions(.3s);
+}
+.app-list-view {
+  float:left;
+  width: 50%;
+  min-height: 100px;
+  margin:0;
+}
+.app-list-detail {
+  margin:0 5px;
+}
+.app-list-items {
+  list-style: none;
+}
+.app-list-item-name {
+  display: block;
+  width: 98%;
+  background: $light-grey;
+  border: 1px solid $grey;
+  padding: 4px 10px;
+  margin: 5px auto;
+  cursor: pointer;
+}
+.app-list-item-content li {
+  list-style: none;
+  margin: 0 0 10px;
+}
+.app-list-item-content-title {
+  display: inline-block;
+  padding: 5px;
+  background: $blue;
+  color: white;
+}
+.app-list-item-content-text {
+  display: inline-block;
+  width: 50px;
+  background: $grey-lighter;
+  padding: 4px 5px;
+  border: 1px solid black;
+}
+.app-list-item-content-editbutton {
+  padding: 2px;
+  text-align: center;
+  border: 1px solid black;
+  background: $blue;
+  color: white;
+  cursor:pointer;
+}
+.app-list-item-content-editbutton:hover {
+  background: $blue-lighter;
+}
