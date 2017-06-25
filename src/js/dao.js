@@ -1,6 +1,8 @@
 module.exports = function () {
   const getSubjects = () => {
-    return JSON.parse(localStorage.getItem("subjects"));
+    let subjs = JSON.parse(localStorage.getItem("subjects"));
+    if (!subjs) subjs = [];
+    return subjs;
   };
   const saveSubjects = (objs) => {
     localStorage.setItem("subjects",JSON.stringify(objs));

@@ -1,19 +1,7 @@
-module.exports = function (name, n1, n2, n3, n4) {
-  const dao     = require('./dao')();
-
+module.exports   = function (name, n1, n2, n3, n4) {
+  const dao      = require('./dao')();
   const toNumber = n => Number(n) || 0;
-
-  const messages = {
-    approved: "Passou!",
-    reproved: "Reprovado!",
-    needsN3: "Volte para os livros, você vai para N3!",
-    needsN4: "Não entre em pânico, mas você vai para N4!",
-    subjAlreadyExists: "A matéria %s já existe",
-    subjAdded: "Matéria %s adicionada",
-    subjDeleted: "Matéria %s deletada",
-    subjNotDeleted: "Erro ao deletar matéria %s",
-    compose: (msg,piece) => messages[msg].replace(/%s/ig,piece)
-  };
+  const messages = require('./messages.js')('pt_br');
   /**
    * I've used this because when I was testing 
    * assert.equal(7.6, new Subject("Math",5,9,8.8).getAvgMarks());
@@ -28,7 +16,7 @@ module.exports = function (name, n1, n2, n3, n4) {
   const getAvgN4 = (n1, n2, n3, n4) => round((getAvgN3(n1, n2, n3) + toNumber(n4)) / 2);
 
 
-  /******************************* Functions that handle subjects depending on what Marks they have ***************/
+  /*************************** Functions that handle marks needed depending on what Marks they have ***************/
   const handleSubjectInN1 = (n1) => {
     if(n1+10 >= 16)
       return {n2:(16-n1)};
@@ -39,14 +27,14 @@ module.exports = function (name, n1, n2, n3, n4) {
   const handleSubjectInN2 = (n1, n2) => {
     if (isApproved(n1, n2))
       return { msg: messages.approved };
-    let tmp = { n1, n2 };
-    let avgN2 = getAvgN2(tmp.n1, tmp.n2);
-    if (avgN2 + 10 >= 18) {
-      tmp.n3 = 18 - avgN2;
-      tmp.msg = mesasges.needsN3;
+    let tmp = {};
+    let sumN2 = n1 + n2;
+    if (sumN2 + 10 >= 18) {
+      tmp.n3 = 18 - sumN2;
+      tmp.msg = messages.needsN3;
     } else {
       tmp.n3 = 10;
-      let tmp2 = handleSubjectInN3(tmp.n1, tmp.n2, tmp.n3);
+      let tmp2 = handleSubjectInN3(n1, n2, tmp.n3);
       tmp.n4 = tmp2.n4;
       tmp.msg = tmp2.msg;
     }

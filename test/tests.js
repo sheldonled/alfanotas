@@ -1,11 +1,7 @@
-const assert = require('assert'),
-  Subject = require('../src/js/model'),
-  messages = {
-    approved: "Passou!",
-    reproved: "Reprovado!",
-    needsN3: "Volte para os livros, você vai para N3!",
-    needsN4: "Não entre em pânico, mas você vai para N4!"
-  };
+const assert = require('chai').assert,
+  expect     = require('chai').expect
+  Subject    = require('../src/js/model'),
+  messages   = require('../src/js/messages')('pt_br');;
 
 describe('Subject Model', function () {
   describe('isApproved', function () {
@@ -28,24 +24,20 @@ describe('Subject Model', function () {
     });
   });
   describe('projectMarksNeeded', function () {
-    it("Returns an object saying that the studant has been approved", () => {
-      //assert.equal({n2:8}, new Subject("Math",8).projectMarksNeeded());
-      assert.equal({ msg: messages.approved },
-        new Subject("Math", 8, 8).projectMarksNeeded());
-      assert.equal({ msg: messages.approved },
-        new Subject("Math", 5, 9, 8.8).projectMarksNeeded());
-      assert.equal({ msg: messages.approved },
-        new Subject("Math", 3, 6, 6, 7.8).projectMarksNeeded());
-      assert.equal({ msg: messages.approved },
-        new Subject("Math", null, 9, 9).projectMarksNeeded());
-      assert.equal({ msg: messages.approved },
-        new Subject("Math", 3.2, 6, 9).projectMarksNeeded());
-    });
-  });
-  describe('projectMarksNeeded', function () {
     it("Returns an object containing the marks a student needs to pass, and a support message", () => {
-      assert.equal({ n4: 7.83, msg: messages.needsN4 },
-        new Subject("Math", 5.1, null, 7.42).projectMarksNeeded());
+      console.log(new Subject("Math", 3.2, 6).projectMarksNeeded());
+      expect({ n4: 7.83, msg: messages.needsN4 }).to.deep.equal
+        (new Subject("Math", 5.1, null, 7.42).projectMarksNeeded());
+      expect({ msg: messages.approved }).to.deep.equal
+        (new Subject("Math", 8, 8).projectMarksNeeded());
+      expect({ msg: messages.approved }).to.deep.equal
+        (new Subject("Math", 5, 9, 8.8).projectMarksNeeded());
+      expect({ n4: 7, msg: messages.needsN4 }).to.deep.equal
+        (new Subject("Math", 3, 6, 6).projectMarksNeeded());
+      expect({ msg: messages.approved }).to.deep.equal
+        (new Subject("Math", null, 9, 9).projectMarksNeeded());
+      expect({ n3: 8.8, msg: messages.needsN3 }).to.deep.equal
+        (new Subject("Math", 3.2, 6).projectMarksNeeded());
     });
   });
 });

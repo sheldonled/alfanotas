@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = grunt => {
 // load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns 
 require('load-grunt-tasks')(grunt);
@@ -18,7 +20,10 @@ require('load-grunt-tasks')(grunt);
     webpack: {
       js: {
         entry: {app:'./build/js/app.js'},
-        output: {path:'./dist/js/', filename:'[name].js'}
+        output: {
+          path: path.resolve(__dirname, 'dist/js'), 
+          filename:'[name].js'
+        }
       }
     },
     jshint: {

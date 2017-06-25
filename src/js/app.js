@@ -20,6 +20,8 @@
       })).map(a => new LocalSubject(a));
     });
     self.addSubject = () => {
+      if (self.subjectBar().length <= 0)
+        return;
       console.log(new Subject(self.subjectBar()).save());
       loadSubjects();
     };
@@ -63,6 +65,6 @@
       }
     };
   }
-  new Subject().saveSubject({name:"Portuguese",n1:7.3});
+  
   ko.applyBindings(new AlfaNotasView());
 })();
