@@ -27,6 +27,8 @@ module.exports   = function (name, n1, n2, n3, n4) {
   const handleSubjectInN2 = (n1, n2) => {
     if (isApproved(n1, n2))
       return { msg: messages.approved };
+    if (n1+n2 < 6)
+      return { msg: messages.reproved };
     let tmp = {};
     let sumN2 = n1 + n2;
     if (sumN2 + 10 >= 18) {

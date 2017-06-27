@@ -12,6 +12,5 @@ module.exports = function(lang) {
                 subjNotDeleted: "Erro ao deletar matéria %s",
                 compose: (msg,piece) => messages[msg].replace(/%s/ig,piece)
             };
-            break;
     }
 }

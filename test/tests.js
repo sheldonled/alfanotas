@@ -25,7 +25,6 @@ describe('Subject Model', function () {
   });
   describe('projectMarksNeeded', function () {
     it("Returns an object containing the marks a student needs to pass, and a support message", () => {
-      console.log(new Subject("Math", 3.2, 6).projectMarksNeeded());
       expect({ n4: 7.83, msg: messages.needsN4 }).to.deep.equal
         (new Subject("Math", 5.1, null, 7.42).projectMarksNeeded());
       expect({ msg: messages.approved }).to.deep.equal
@@ -38,6 +37,18 @@ describe('Subject Model', function () {
         (new Subject("Math", null, 9, 9).projectMarksNeeded());
       expect({ n3: 8.8, msg: messages.needsN3 }).to.deep.equal
         (new Subject("Math", 3.2, 6).projectMarksNeeded());
+      expect({ msg: messages.reproved }).to.deep.equal
+        (new Subject("Math", 3.2, 2).projectMarksNeeded());
+      expect({ msg: messages.reproved }).to.deep.equal
+        (new Subject("Math", 3.2, 5,3,4).projectMarksNeeded());
+      expect({ n3:10, n4:6.6, msg: messages.needsN4 }).to.deep.equal
+        (new Subject("Math", 3.2, 3).projectMarksNeeded());
+      expect({ n3:6, msg: messages.needsN3 }).to.deep.equal
+        (new Subject("Math", 9, 3).projectMarksNeeded());
+      expect({ msg: messages.approved }).to.deep.equal
+        (new Subject("Math", 4.75, 4.43, 8.82).projectMarksNeeded());
+      expect({ n3:2.59, msg: messages.needsN3 }).to.deep.equal
+        (new Subject("Math", 9.09, 6.32).projectMarksNeeded());
     });
   });
 });
