@@ -1,7 +1,7 @@
 const assert = require('chai').assert,
-  expect     = require('chai').expect
+  expect     = require('chai').expect,
   Subject    = require('../src/js/model'),
-  messages   = require('../src/js/messages')('pt_br');;
+  messages   = require('../src/js/messages')('pt_br');
 
 describe('Subject Model', function () {
   describe('isApproved', function () {

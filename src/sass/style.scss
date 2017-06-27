@@ -15,6 +15,7 @@ $blue-lighter:#7E90A8;
 @mixin transitions($time) {
   -webkit-transition: all $time linear;
   -moz-transition: all $time linear;
+  -ms-transition: all $time linear;
   -o-transition: all $time linear;
   transition: all $time linear;
 }
@@ -72,9 +73,12 @@ body,html {
   margin: 5px auto;
   cursor: pointer;
 }
+.app-list-item-content{
+  margin-left: 5px;
+}
 .app-list-item-content li {
   list-style: none;
-  margin: 0 0 10px;
+  display: inline-block;
 }
 .app-list-item-content-title {
   display: inline-block;
@@ -84,18 +88,13 @@ body,html {
 }
 .app-list-item-content-text {
   display: inline-block;
-  width: 50px;
+  width: 35px;
   background: $grey-lighter;
   padding: 4px 5px;
   border: 1px solid black;
 }
-.app-list-item-content-editbutton {
-  padding: 2px;
-  text-align: center;
-  border: 1px solid black;
-  background: $blue;
-  color: white;
-  cursor:pointer;
+.app-list-item-content-editbutton.button.expanded {
+  margin: 5px 0;
 }
 .app-list-item-content-editbutton:hover {
   background: $blue-lighter;

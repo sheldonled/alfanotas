@@ -3862,6 +3862,7 @@ body, html {
   left: 0;
   -webkit-transition: all 0.3s linear;
   -moz-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear; }
 
@@ -3886,9 +3887,12 @@ body, html {
   margin: 5px auto;
   cursor: pointer; }
 
+.app-list-item-content {
+  margin-left: 5px; }
+
 .app-list-item-content li {
   list-style: none;
-  margin: 0 0 10px; }
+  display: inline-block; }
 
 .app-list-item-content-title {
   display: inline-block;
@@ -3898,18 +3902,13 @@ body, html {
 
 .app-list-item-content-text {
   display: inline-block;
-  width: 50px;
+  width: 35px;
   background: #dadada;
   padding: 4px 5px;
   border: 1px solid black; }
 
-.app-list-item-content-editbutton {
-  padding: 2px;
-  text-align: center;
-  border: 1px solid black;
-  background: #5A6A7A;
-  color: white;
-  cursor: pointer; }
+.app-list-item-content-editbutton.button.expanded {
+  margin: 5px 0; }
 
 .app-list-item-content-editbutton:hover {
   background: #7E90A8; }

@@ -72,24 +72,10 @@
 
 module.exports = function (name, n1, n2, n3, n4) {
   var dao = __webpack_require__(2)();
-
   var toNumber = function toNumber(n) {
     return Number(n) || 0;
   };
-
-  var messages = {
-    approved: "Passou!",
-    reproved: "Reprovado!",
-    needsN3: "Volte para os livros, você vai para N3!",
-    needsN4: "Não entre em pânico, mas você vai para N4!",
-    subjAlreadyExists: "A matéria %s já existe",
-    subjAdded: "Matéria %s adicionada",
-    subjDeleted: "Matéria %s deletada",
-    subjNotDeleted: "Erro ao deletar matéria %s",
-    compose: function compose(msg, piece) {
-      return messages[msg].replace(/%s/ig, piece);
-    }
-  };
+  var messages = __webpack_require__(3)('pt_br');
   /**
    * I've used this because when I was testing 
    * assert.equal(7.6, new Subject("Math",5,9,8.8).getAvgMarks());
@@ -111,7 +97,7 @@ module.exports = function (name, n1, n2, n3, n4) {
     return round((getAvgN3(n1, n2, n3) + toNumber(n4)) / 2);
   };
 
-  /******************************* Functions that handle subjects depending on what Marks they have ***************/
+  /*************************** Functions that handle marks needed depending on what Marks they have ***************/
   var handleSubjectInN1 = function handleSubjectInN1(n1) {
     if (n1 + 10 >= 16) return { n2: 16 - n1 };else {
       return handleSubjectInN2(n1, 10);
@@ -119,14 +105,15 @@ module.exports = function (name, n1, n2, n3, n4) {
   };
   var handleSubjectInN2 = function handleSubjectInN2(n1, n2) {
     if (_isApproved(n1, n2)) return { msg: messages.approved };
-    var tmp = { n1: n1, n2: n2 };
-    var avgN2 = getAvgN2(tmp.n1, tmp.n2);
-    if (avgN2 + 10 >= 18) {
-      tmp.n3 = 18 - avgN2;
-      tmp.msg = mesasges.needsN3;
+    if (n1 + n2 < 6) return { msg: messages.reproved };
+    var tmp = {};
+    var sumN2 = n1 + n2;
+    if (sumN2 + 10 >= 18) {
+      tmp.n3 = 18 - sumN2;
+      tmp.msg = messages.needsN3;
     } else {
       tmp.n3 = 10;
-      var tmp2 = handleSubjectInN3(tmp.n1, tmp.n2, tmp.n3);
+      var tmp2 = handleSubjectInN3(n1, n2, tmp.n3);
       tmp.n4 = tmp2.n4;
       tmp.msg = tmp2.msg;
     }
@@ -196,6 +183,13 @@ module.exports = function (name, n1, n2, n3, n4) {
     saveSubject: function saveSubject(newSub) {
       var done = false,
           subjs = dao.getSubjects();
+      Object.keys(newSub).map(function (key, index) {
+        if (["n1", "n2", "n3", "n4"].indexOf(key) >= 0 && newSub[key] !== undefined && newSub[key] !== null) {
+          newSub[key] = newSub[key].toString().replace(/,/g, ".");
+          newSub[key] = isNaN(newSub[key]) ? null : Number(newSub[key]);
+          if (newSub[key] > 10) newSub[key] = null;
+        }
+      });
       subjs = subjs.map(function (s) {
         if (s.name == newSub.name) {
           done = true;
@@ -330,6 +324,31 @@ module.exports = function () {
     getSubjects: getSubjects,
     saveSubjects: saveSubjects
   };
+};
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = function (lang) {
+    switch (lang) {
+        case "pt_br":
+            var msgs = {
+                approved: "Passou!",
+                reproved: "Reprovado!",
+                needsN3: "Volte para os livros, você vai para N3!",
+                needsN4: "Não entre em pânico, mas você vai para N4!",
+                subjAlreadyExists: "A matéria %s já existe",
+                subjAdded: "Matéria %s adicionada",
+                subjDeleted: "Matéria %s deletada",
+                subjNotDeleted: "Erro ao deletar matéria %s"
+            };
+            msgs.compose = function (msg, piece) {
+                return msgs[msg].replace(/%s/ig, piece);
+            };
+            return msgs;
+    }
 };
 
 

@@ -40,7 +40,8 @@
           <li>
             <span class="app-list-item-content-title">N4:</span>
             <span class="app-list-item-content-text" data-bind="text:n4() || '&nbsp;'"></span></li>
-          <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.editSubject($index())}">Editar</li>
+          <li class="app-list-item-content-editbutton button expanded"
+          data-bind="click:function(){$root.editSubject($index())}">Editar</li>
         </ul>
       </li>
     </ul>
@@ -59,9 +60,9 @@
         <li>
           <span class="app-list-item-content-title">N4:</span>
           <input class="app-list-item-content-text" type="text" data-bind="value:n4"></input></li>
-        <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.cancelEdit()}">Voltar</li>
-        <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.saveEdit()}">Salvar</li>
-        <li class="app-list-item-content-editbutton" data-bind="click:function(){$root.deleteSubject()}">Deletar</li>
+        <li class="app-list-item-content-savebutton button success expanded" data-bind="click:function(){$root.saveEdit()}">Salvar</li>
+        <li class="app-list-item-content-cancelbutton button secundary expanded" data-bind="click:function(){$root.cancelEdit()}">Voltar</li>
+        <li class="app-list-item-content-deletebutton button alert expanded" data-bind="click:function(){$root.deleteSubject()}">Deletar</li>
       </ul>
     </div>
     <div class="clear"></div>

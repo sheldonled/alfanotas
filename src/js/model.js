@@ -120,6 +120,14 @@ module.exports   = function (name, n1, n2, n3, n4) {
     saveSubject : function(newSub){
       let done = false,
           subjs = dao.getSubjects();
+      Object.keys(newSub).map(function(key,index){
+        if (["n1", "n2", "n3", "n4"].indexOf(key) >= 0 && newSub[key] !== undefined && newSub[key] !== null) {
+          newSub[key] = newSub[key].toString().replace(/,/g, ".");
+          newSub[key] = (isNaN(newSub[key]) ? null : Number(newSub[key]));
+          if(newSub[key] > 10)
+            newSub[key] = null;
+        }
+      });
       subjs = subjs.map(s => {
         if(s.name == newSub.name) {
           done = true;
