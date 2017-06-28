@@ -27,22 +27,24 @@
     <ul class="app-list-view main-view" data-bind="foreach:subjects">
       <li class="app-list-items" data-bind="css:'item-'+$index()">
         <span class="app-list-item-name" data-bind="text:name,click:function(){$root.toggleDetailView($index())}"></span>
-        <ul class="app-list-item-content" data-bind="visible: viewOpened">
-          <li>
-            <span class="app-list-item-content-title">N1:</span>
-            <span class="app-list-item-content-text" data-bind="text:n1() || '&nbsp;'"></span></li>
-          <li>
-            <span class="app-list-item-content-title">N2:</span>
-            <span class="app-list-item-content-text" data-bind="text:n2() || '&nbsp;'"></span></li>
-          <li>
-            <span class="app-list-item-content-title">N3:</span>
-            <span class="app-list-item-content-text" data-bind="text:n3() || '&nbsp;'"></span></li>
-          <li>
-            <span class="app-list-item-content-title">N4:</span>
-            <span class="app-list-item-content-text" data-bind="text:n4() || '&nbsp;'"></span></li>
-          <li class="app-list-item-content-editbutton button expanded"
-          data-bind="click:function(){$root.editSubject($index())}">Editar</li>
-        </ul>
+        <div  data-bind="visible: viewOpened">
+          <table class="app-list-item-content">
+            <tr>
+              <th>N1</th>
+              <th>N2</th>
+              <th>N3</th>
+              <th>N4</th>
+            </tr>
+            <tr>
+              <td data-bind="text:n1() || '&nbsp;'"></td>
+              <td data-bind="text:n2() || '&nbsp;'"></td>
+              <td data-bind="text:n3() || '&nbsp;'"></td>
+              <td data-bind="text:n4() || '&nbsp;'"></td>
+            </tr>
+          </table>
+          <button class="app-list-item-content-editbutton button expanded"
+          data-bind="click:function(){$root.editSubject($index())}">Editar</button>
+        </section>
       </li>
     </ul>
     <div class="app-list-view edit-view" data-bind="with:editSubj">

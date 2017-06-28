@@ -1,6 +1,6 @@
 @import '../../bower_components/foundation-sites/assets/foundation';
 /********************************* Variables ************************************/
-$font-stack:    Helvetica, sans-serif;
+$font-stack: Helvetica, sans-serif;
 $bgcolor: #fbfbfb;
 $grey: #333;
 $grey-lighter: #dadada;
@@ -50,7 +50,7 @@ body,html {
   width:200%;
   position: relative;
   left:0;
-  @include transitions(.3s);
+  @include transitions(.2s);
 }
 .app-list-view {
   float:left;
@@ -63,10 +63,12 @@ body,html {
 }
 .app-list-items {
   list-style: none;
+  width: 98%;
+  margin: 0 1%;
 }
 .app-list-item-name {
   display: block;
-  width: 98%;
+  width: 100%;
   background: $light-grey;
   border: 1px solid $grey;
   padding: 4px 10px;
@@ -79,6 +81,7 @@ body,html {
 .app-list-item-content li {
   list-style: none;
   display: inline-block;
+  width: 49%;
 }
 .app-list-item-content-title {
   display: inline-block;
@@ -91,10 +94,12 @@ body,html {
   width: 35px;
   background: $grey-lighter;
   padding: 4px 5px;
+  height: 36px;
+  margin: 0 0 5px;
   border: 1px solid black;
 }
-.app-list-item-content-editbutton.button.expanded {
-  margin: 5px 0;
+.button.expanded {
+  margin: 5px 0 0;
 }
 .app-list-item-content-editbutton:hover {
   background: $blue-lighter;
