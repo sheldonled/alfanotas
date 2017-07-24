@@ -235,71 +235,87 @@ module.exports = function (name, n1, n2, n3, n4) {
   var Subject = __webpack_require__(0);
 
   function AlfaNotasView(subs) {
-    function LocalSubject(obj) {
-      this.name = ko.observable(obj.name);
-      this.n1 = ko.observable(obj.n1);
-      this.n2 = ko.observable(obj.n2);
-      this.n3 = ko.observable(obj.n3);
-      this.n4 = ko.observable(obj.n4);
-      this.viewOpened = ko.observable(obj.viewOpened);
-    }
+    /**
+     * Local Object
+     */
+    var _ = {
+      scrollTop: 0,
+      loadSubjects: function loadSubjects() {
+        self.subjectBar("");
+        self.totalSubs(new Subject().getAllSubjects());
+        self.totalSubs.notifySubscribers();
+      },
+      changeView: function changeView(view) {
+        var mainView = document.getElementsByClassName("app__view--main")[0],
+            editView = document.getElementsByClassName("app__view--edit")[0];
+        switch (view) {
+          case "main":
+            console.log(_.scrollTop);
+            console.log(_.scrollTop || 0);
+            mainView.style.left = 0;
+            editView.style.left = "100%";
+            window.setTimeout(function () {
+              if (_.scrollTop > 0) document.body.scrollTop = _.scrollTop;
+            }, 400);
+            break;
+          case "edit":
+            _.scrollTop = document.body.scrollTop;
+            mainView.style.left = "-100%";
+            editView.style.left = 0;
+            break;
+        }
+      },
+      LocalSubject: function LocalSubject(obj) {
+        this.name = ko.observable(obj.name);
+        this.n1 = ko.observable(obj.n1);
+        this.n2 = ko.observable(obj.n2);
+        this.n3 = ko.observable(obj.n3);
+        this.n4 = ko.observable(obj.n4);
+        this.viewOpened = ko.observable(obj.viewOpened);
+      }
+    };
+
     var self = this;
-    self.editSubj = ko.observable(new LocalSubject({}));
+    self.editSubj = ko.observable(new _.LocalSubject({}));
     self.subjectBar = ko.observable("");
     self.totalSubs = ko.observableArray();
     self.subjects = ko.computed(function () {
       return ko.utils.arrayFilter(self.totalSubs(), function (a) {
         return a.name.match(new RegExp(self.subjectBar(), "i"));
       }).map(function (a) {
-        return new LocalSubject(a);
+        return new _.LocalSubject(a);
       });
     });
     self.addSubject = function () {
       if (self.subjectBar().length <= 0) return;
       console.log(new Subject(self.subjectBar()).save());
-      loadSubjects();
+      _.loadSubjects();
     };
     self.editSubject = function (id) {
       self.editSubj(self.subjects()[id]);
-      changeView("edit-view");
+      _.changeView("edit");
     };
     self.cancelEdit = function () {
       window.setTimeout(function () {
-        return self.editSubj(new LocalSubject({}));
+        return self.editSubj(new _.LocalSubject({}));
       }, 400);
-      changeView("main-view");
+      _.changeView("main");
     };
     self.saveEdit = function () {
       new Subject().saveSubject(ko.toJS(self.editSubj()));
       self.cancelEdit();
-      loadSubjects();
+      _.loadSubjects();
     };
     self.deleteSubject = function () {
       var msg = new Subject().delete(self.editSubj().name());
       console.log(msg);
       self.cancelEdit();
-      loadSubjects();
+      _.loadSubjects();
     };
     self.toggleDetailView = function (id) {
       self.subjects()[id].viewOpened(!self.subjects()[id].viewOpened());
     };
-    var loadSubjects = function loadSubjects() {
-      self.subjectBar("");
-      self.totalSubs(new Subject().getAllSubjects());
-      self.totalSubs.notifySubscribers();
-    };
-    loadSubjects();
-    var changeView = function changeView(view) {
-      var appViews = document.getElementsByClassName("app-views")[0];
-      switch (view) {
-        case "main-view":
-          appViews.style.left = 0;
-          break;
-        case "edit-view":
-          appViews.style.left = "-100%";
-          break;
-      }
-    };
+    _.loadSubjects();
   }
 
   ko.applyBindings(new AlfaNotasView());

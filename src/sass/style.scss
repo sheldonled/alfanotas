@@ -1,10 +1,11 @@
 @import '../../bower_components/foundation-sites/assets/foundation';
 /********************************* Variables ************************************/
 $font-stack: Helvetica, sans-serif;
+$white: #FFF;
 $bgcolor: #fbfbfb;
-$grey: #333;
-$grey-lighter: #dadada;
-$light-grey: #AAA;
+$gray: #333;
+$gray-lighter: #cacaca;
+$light-gray: #AAA;
 $green: #1CAF9A;
 $green-darker: #1B9E89;
 $red: #DA0000;
@@ -12,14 +13,15 @@ $blue: #5A6A7A;
 $blue-lighter:#7E90A8;
 
 /********************************* Mixins ************************************/
-@mixin transitions($time) {
-  -webkit-transition: all $time linear;
-  -moz-transition: all $time linear;
-  -ms-transition: all $time linear;
-  -o-transition: all $time linear;
-  transition: all $time linear;
-}
+
 /********************************* Variables ************************************/
+* {
+  -webkit-transition: all .4s linear;
+  -moz-transition: all .4s linear;
+  -ms-transition: all .4s linear;
+  -o-transition: all .4s linear;
+  transition: all .4s linear;
+}
 body,html {
   height: 100%;
   overflow-y: auto;
@@ -29,78 +31,94 @@ body,html {
 .clear {
   clear:both;
 }
-.app-title {
+.app__title {
   font-weight: bold;
-  color: white;
+  color: $white;
   text-align: center;
-  background-color: red;
+  background-color: $red;
   margin: 0;
 }
-.app-button-plus {
+.app__button-plus {
   background: $green;
   border: 1px solid $green-darker;
-  color: white;
+  color: $white;
   font-weight: bold;
   font-size: 2rem;
   line-height: 0;
   margin: 0;
   cursor: pointer;
 }
-.app-views {
-  width:200%;
-  position: relative;
-  left:0;
-  @include transitions(.2s);
-}
-.app-list-view {
-  float:left;
-  width: 50%;
-  min-height: 100px;
-  margin:0;
-}
-.app-list-detail {
-  margin:0 5px;
-}
-.app-list-items {
-  list-style: none;
-  width: 98%;
-  margin: 0 1%;
-}
-.app-list-item-name {
-  display: block;
+.app__view {
+  position: absolute;
   width: 100%;
-  background: $light-grey;
-  border: 1px solid $grey;
-  padding: 4px 10px;
-  margin: 5px auto;
-  cursor: pointer;
+  padding: 0 1%;
+  &--main {
+    left: 0;
+    margin: 0;
+  }
+  &--edit {
+    left: 100%;
+  }
+  .button {
+    margin-bottom: 5px;
+    &.success {
+      background: $green;
+      border: 1px solid $green-darker;
+      color: $white;
+    }
+  }
+  ul {
+    list-style: none;
+  }
+  .prefix {
+    background: $light-gray;
+    border: 1px solid $gray-lighter;
+    height: 2.4375rem;
+    text-align: center;
+    display: block;
+    padding: .5rem;
+    line-height: 1.5;
+  }
 }
-.app-list-item-content{
-  margin-left: 5px;
+
+.list-item {
+
+  &__name {
+    display: block;
+    padding: 10px;
+    background-color: $light-gray;
+    cursor: pointer;
+    margin-bottom: 5px;
+    &:hover{
+      background-color: $gray-lighter;
+    }
+  }
+
+  &__content {
+    background: darken($blue,10%);
+    th {
+      background-color: $blue;
+      color: $white;
+      text-align: center;
+    }
+    td {
+      text-align: center;
+    }
+  }
 }
-.app-list-item-content li {
-  list-style: none;
-  display: inline-block;
-  width: 49%;
-}
-.app-list-item-content-title {
-  display: inline-block;
-  padding: 5px;
-  background: $blue;
-  color: white;
-}
-.app-list-item-content-text {
-  display: inline-block;
-  width: 35px;
-  background: $grey-lighter;
-  padding: 4px 5px;
-  height: 36px;
-  margin: 0 0 5px;
-  border: 1px solid black;
-}
-.button.expanded {
-  margin: 5px 0 0;
-}
-.app-list-item-content-editbutton:hover {
-  background: $blue-lighter;
+
+.edit-item {
+
+  &__name {
+    display: block;
+    padding: 10px;
+    background-color: lighten($blue,40%);
+    border-bottom: 2px solid darken($blue,10%);
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+  &__content {
+    margin: 0;
+  }
 }

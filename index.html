@@ -18,56 +18,94 @@
   <link rel="stylesheet" href="dist/css/style.min.css">
 </head>
 <body>
-  <h1 class="app-title">Alfa Notas</h1>
+  <h1 class="app__title">Alfa Notas</h1>
   <div class="input-group">
-    <input class="input-group-field app-bar-subject" type="text" data-bind="textInput: subjectBar">
-    <span class="input-group-label app-button-plus" data-bind="click: addSubject">+</span>
+    <input class="input-group-field app__bar-subject" type="text" data-bind="textInput: subjectBar">
+    <span class="input-group-label app__button-plus" data-bind="click: addSubject">+</span>
   </div>
-  <div class="app-views">
-    <ul class="app-list-view main-view" data-bind="foreach:subjects">
-      <li class="app-list-items" data-bind="css:'item-'+$index()">
-        <span class="app-list-item-name" data-bind="text:name,click:function(){$root.toggleDetailView($index())}"></span>
-        <div  data-bind="visible: viewOpened">
-          <table class="app-list-item-content">
-            <tr>
-              <th>N1</th>
-              <th>N2</th>
-              <th>N3</th>
-              <th>N4</th>
-            </tr>
-            <tr>
-              <td data-bind="text:n1() || '&nbsp;'"></td>
-              <td data-bind="text:n2() || '&nbsp;'"></td>
-              <td data-bind="text:n3() || '&nbsp;'"></td>
-              <td data-bind="text:n4() || '&nbsp;'"></td>
-            </tr>
-          </table>
-          <button class="app-list-item-content-editbutton button expanded"
-          data-bind="click:function(){$root.editSubject($index())}">Editar</button>
-        </section>
+  <ul class="app__view app__view--main" data-bind="foreach:subjects">
+    <li class="list-item" data-bind="css:'item__'+$index()">
+      <span 
+        class="list-item__name"
+        data-bind="text:name,click:function(){$root.toggleDetailView($index())}"
+      ></span>
+      <div  data-bind="visible: viewOpened">
+        <table class="list-item__content">
+          <tr>
+            <th>N1</th>
+            <th>N2</th>
+            <th>N3</th>
+            <th>N4</th>
+          </tr>
+          <tr>
+            <td data-bind="text:n1() || '&nbsp;'"></td>
+            <td data-bind="text:n2() || '&nbsp;'"></td>
+            <td data-bind="text:n3() || '&nbsp;'"></td>
+            <td data-bind="text:n4() || '&nbsp;'"></td>
+          </tr>
+        </table>
+        <button
+          class="list-item__editbutton button expanded"
+          data-bind="click:function(){$root.editSubject($index())}"
+        >Editar</button>
+    </li>
+  </ul>
+  <div class="app__view app__view--edit" data-bind="with:editSubj">
+    <span class="edit-item__name" data-bind="text:name"></span>
+    <ul class="edit-item__content">
+      <li>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix">N1:</span>
+          </div>
+          <div class="small-10 columns">
+            <input class="edit-item__value" type="text" data-bind="value:n1"></input>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix">N2:</span>
+          </div>
+          <div class="small-10 columns">
+            <input class="edit-item__value" type="text" data-bind="value:n2"></input>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix">N3:</span>
+          </div>
+          <div class="small-10 columns">
+            <input class="edit-item__value" type="text" data-bind="value:n3"></input>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix">N4:</span>
+          </div>
+          <div class="small-10 columns">
+            <input class="edit-item__value" type="text" data-bind="value:n4"></input>
+          </div>
+        </div>
       </li>
     </ul>
-    <div class="app-list-view edit-view" data-bind="with:editSubj">
-      <span class="app-list-item-name" data-bind="text:name"></span>
-      <ul class="app-list-item-content">
-        <li>
-          <span class="app-list-item-content-title">N1:</span>
-          <input class="app-list-item-content-text" type="text" data-bind="value:n1"></input></li>
-        <li>
-          <span class="app-list-item-content-title">N2:</span>
-          <input class="app-list-item-content-text" type="text" data-bind="value:n2"></input></li>
-        <li>
-          <span class="app-list-item-content-title">N3:</span>
-          <input class="app-list-item-content-text" type="text" data-bind="value:n3"></input></li>
-        <li>
-          <span class="app-list-item-content-title">N4:</span>
-          <input class="app-list-item-content-text" type="text" data-bind="value:n4"></input></li>
-        <li class="app-list-item-content-savebutton button success expanded" data-bind="click:function(){$root.saveEdit()}">Salvar</li>
-        <li class="app-list-item-content-cancelbutton button secundary expanded" data-bind="click:function(){$root.cancelEdit()}">Voltar</li>
-        <li class="app-list-item-content-deletebutton button alert expanded" data-bind="click:function(){$root.deleteSubject()}">Deletar</li>
-      </ul>
-    </div>
-    <div class="clear"></div>
+    <button 
+      class="edit-item__savebutton button success expanded"
+      data-bind="click:function(){$root.saveEdit()}"
+    >Salvar</button>
+    <button
+      class="edit-item__cancelbutton button secundary expanded"
+      data-bind="click:function(){$root.cancelEdit()}"
+    >Voltar</li>
+    <button
+      class="edit-item__deletebutton button alert expanded"
+      data-bind="click:function(){$root.deleteSubject()}"
+    >Deletar</li>
   </div>
 </body>
 <!-- JavaScript -->

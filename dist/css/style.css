@@ -3830,6 +3830,13 @@ a.thumbnail {
 /********************************* Variables ************************************/
 /********************************* Mixins ************************************/
 /********************************* Variables ************************************/
+* {
+  -webkit-transition: all .4s linear;
+  -moz-transition: all .4s linear;
+  -ms-transition: all .4s linear;
+  -o-transition: all .4s linear;
+  transition: all .4s linear; }
+
 body, html {
   height: 100%;
   overflow-y: auto;
@@ -3839,81 +3846,75 @@ body, html {
 .clear {
   clear: both; }
 
-.app-title {
+.app__title {
   font-weight: bold;
-  color: white;
+  color: #FFF;
   text-align: center;
-  background-color: red;
+  background-color: #DA0000;
   margin: 0; }
 
-.app-button-plus {
+.app__button-plus {
   background: #1CAF9A;
   border: 1px solid #1B9E89;
-  color: white;
+  color: #FFF;
   font-weight: bold;
   font-size: 2rem;
   line-height: 0;
   margin: 0;
   cursor: pointer; }
 
-.app-views {
-  width: 200%;
-  position: relative;
-  left: 0;
-  -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -ms-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear; }
-
-.app-list-view {
-  float: left;
-  width: 50%;
-  min-height: 100px;
-  margin: 0; }
-
-.app-list-detail {
-  margin: 0 5px; }
-
-.app-list-items {
-  list-style: none;
-  width: 98%;
-  margin: 0 1%; }
-
-.app-list-item-name {
-  display: block;
+.app__view {
+  position: absolute;
   width: 100%;
-  background: #AAA;
-  border: 1px solid #333;
-  padding: 4px 10px;
-  margin: 5px auto;
-  cursor: pointer; }
+  padding: 0 1%; }
+  .app__view--main {
+    left: 0;
+    margin: 0; }
+  .app__view--edit {
+    left: 100%; }
+  .app__view .button {
+    margin-bottom: 5px; }
+    .app__view .button.success {
+      background: #1CAF9A;
+      border: 1px solid #1B9E89;
+      color: #FFF; }
+  .app__view ul {
+    list-style: none; }
+  .app__view .prefix {
+    background: #AAA;
+    border: 1px solid #cacaca;
+    height: 2.4375rem;
+    text-align: center;
+    display: block;
+    padding: .5rem;
+    line-height: 1.5; }
 
-.app-list-item-content {
-  margin-left: 5px; }
+.list-item__name {
+  display: block;
+  padding: 10px;
+  background-color: #AAA;
+  cursor: pointer;
+  margin-bottom: 5px; }
+  .list-item__name:hover {
+    background-color: #cacaca; }
 
-.app-list-item-content li {
-  list-style: none;
-  display: inline-block;
-  width: 49%; }
+.list-item__content {
+  background: #44515d; }
+  .list-item__content th {
+    background-color: #5A6A7A;
+    color: #FFF;
+    text-align: center; }
+  .list-item__content td {
+    text-align: center; }
 
-.app-list-item-content-title {
-  display: inline-block;
-  padding: 5px;
-  background: #5A6A7A;
-  color: white; }
+.edit-item__name {
+  display: block;
+  padding: 10px;
+  background-color: #c9d0d7;
+  border-bottom: 2px solid #44515d;
+  text-align: center;
+  margin-bottom: 15px;
+  text-transform: uppercase; }
 
-.app-list-item-content-text {
-  display: inline-block;
-  width: 35px;
-  background: #dadada;
-  padding: 4px 5px;
-  height: 36px;
-  margin: 0 0 5px;
-  border: 1px solid black; }
-
-.button.expanded {
-  margin: 5px 0 0; }
-
-.app-list-item-content-editbutton:hover {
-  background: #7E90A8; }
+.edit-item__content {
+  margin: 0; }
