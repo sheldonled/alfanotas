@@ -39,7 +39,7 @@ body,html {
   margin: 0;
 }
 .app__button-plus {
-  background: $green;
+  background-color: $green;
   border: 1px solid $green-darker;
   color: $white;
   font-weight: bold;
@@ -58,20 +58,28 @@ body,html {
   }
   &--edit {
     left: 100%;
+    .button {
+      display: block;
+      width: 33.3333333%;
+      float: left;
+    }
   }
   .button {
     margin-bottom: 5px;
     &.success {
-      background: $green;
+      background-color: $green;
       border: 1px solid $green-darker;
       color: $white;
+      &:hover {
+        background-color: $green-darker;
+      }
     }
   }
   ul {
     list-style: none;
   }
   .prefix {
-    background: $light-gray;
+    background-color: $light-gray;
     border: 1px solid $gray-lighter;
     height: 2.4375rem;
     text-align: center;
@@ -95,7 +103,7 @@ body,html {
   }
 
   &__content {
-    background: darken($blue,10%);
+    background-color: darken($blue,10%);
     th {
       background-color: $blue;
       color: $white;

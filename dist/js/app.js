@@ -208,11 +208,11 @@ module.exports = function (name, n1, n2, n3, n4) {
       self = this;
       if (subjs.filter(function (a) {
         return a.name === self.name;
-      }).length > 0) return messages.compose("subjAlreadyExists", self.name);
+      }).length > 0) return { err: messages.compose("subjAlreadyExists", self.name) };
 
       subjs.push(simplify(this.name, this.marks));
       dao.saveSubjects(subjs);
-      return messages.compose("subjAdded", self.name);
+      return { msg: messages.compose("subjAdded", self.name) };
     },
     delete: function _delete(name) {
       var done = false,
@@ -221,7 +221,9 @@ module.exports = function (name, n1, n2, n3, n4) {
         if (s.name == name) done = true;else return true;
       });
       dao.saveSubjects(subjs);
-      return messages.compose(done ? "subjDeleted" : "subjNotDeleted", name);
+      objReturn = {};
+      if (done) objReturn.msg = messages.compose("subjDeleted", name);else objReturn.err = messages.compose("subjNotDeleted", name);
+      return objReturn;
     }
   };
 };
@@ -233,48 +235,48 @@ module.exports = function (name, n1, n2, n3, n4) {
 
 (function () {
   var Subject = __webpack_require__(0);
-
-  function AlfaNotasView(subs) {
-    /**
-     * Local Object
-     */
-    var _ = {
-      scrollTop: 0,
-      loadSubjects: function loadSubjects() {
-        self.subjectBar("");
-        self.totalSubs(new Subject().getAllSubjects());
-        self.totalSubs.notifySubscribers();
-      },
-      changeView: function changeView(view) {
-        var mainView = document.getElementsByClassName("app__view--main")[0],
-            editView = document.getElementsByClassName("app__view--edit")[0];
-        switch (view) {
-          case "main":
-            console.log(_.scrollTop);
-            console.log(_.scrollTop || 0);
-            mainView.style.left = 0;
-            editView.style.left = "100%";
-            window.setTimeout(function () {
-              if (_.scrollTop > 0) document.body.scrollTop = _.scrollTop;
-            }, 400);
-            break;
-          case "edit":
-            _.scrollTop = document.body.scrollTop;
-            mainView.style.left = "-100%";
-            editView.style.left = 0;
-            break;
-        }
-      },
-      LocalSubject: function LocalSubject(obj) {
-        this.name = ko.observable(obj.name);
-        this.n1 = ko.observable(obj.n1);
-        this.n2 = ko.observable(obj.n2);
-        this.n3 = ko.observable(obj.n3);
-        this.n4 = ko.observable(obj.n4);
-        this.viewOpened = ko.observable(obj.viewOpened);
+  /**
+   * Local Object
+   */
+  var _ = {
+    scrollTop: 0,
+    loadSubjects: function loadSubjects(view) {
+      view.subjectBar("");
+      view.totalSubs(new Subject().getAllSubjects());
+      view.totalSubs.notifySubscribers();
+    },
+    changeView: function changeView(domView) {
+      var mainView = document.getElementsByClassName("app__view--main")[0],
+          editView = document.getElementsByClassName("app__view--edit")[0];
+      switch (domView) {
+        case "main":
+          mainView.style.left = 0;
+          editView.style.left = "100%";
+          window.setTimeout(function () {
+            if (_.scrollTop > 0) document.body.scrollTop = _.scrollTop;
+          }, 400);
+          break;
+        case "edit":
+          _.scrollTop = document.body.scrollTop;
+          mainView.style.left = "-100%";
+          editView.style.left = 0;
+          break;
       }
-    };
+    },
+    LocalSubject: function LocalSubject(obj) {
+      this.name = ko.observable(obj.name);
+      this.n1 = ko.observable(obj.n1);
+      this.n2 = ko.observable(obj.n2);
+      this.n3 = ko.observable(obj.n3);
+      this.n4 = ko.observable(obj.n4);
+      this.viewOpened = ko.observable(obj.viewOpened);
+    }
+  };
 
+  /**
+   * Model Object
+   */
+  var AlfaNotasView = function AlfaNotasView() {
     var self = this;
     self.editSubj = ko.observable(new _.LocalSubject({}));
     self.subjectBar = ko.observable("");
@@ -286,39 +288,48 @@ module.exports = function (name, n1, n2, n3, n4) {
         return new _.LocalSubject(a);
       });
     });
-    self.addSubject = function () {
-      if (self.subjectBar().length <= 0) return;
-      console.log(new Subject(self.subjectBar()).save());
-      _.loadSubjects();
-    };
-    self.editSubject = function (id) {
-      self.editSubj(self.subjects()[id]);
-      _.changeView("edit");
-    };
-    self.cancelEdit = function () {
-      window.setTimeout(function () {
-        return self.editSubj(new _.LocalSubject({}));
-      }, 400);
-      _.changeView("main");
-    };
-    self.saveEdit = function () {
-      new Subject().saveSubject(ko.toJS(self.editSubj()));
-      self.cancelEdit();
-      _.loadSubjects();
-    };
-    self.deleteSubject = function () {
-      var msg = new Subject().delete(self.editSubj().name());
-      console.log(msg);
-      self.cancelEdit();
-      _.loadSubjects();
-    };
-    self.toggleDetailView = function (id) {
-      self.subjects()[id].viewOpened(!self.subjects()[id].viewOpened());
-    };
-    _.loadSubjects();
-  }
+    _.loadSubjects(self);
+  };
 
-  ko.applyBindings(new AlfaNotasView());
+  /**
+   * Model Functions
+   */
+  AlfaNotasView.prototype.addSubject = function () {
+    if (this.subjectBar().length <= 0) return;
+    console.log(new Subject(this.subjectBar()).save());
+    _.loadSubjects(this);
+  };
+  AlfaNotasView.prototype.editSubject = function (id) {
+    this.editSubj(this.subjects()[id]);
+    _.changeView("edit");
+  };
+  AlfaNotasView.prototype.cancelEdit = function () {
+    var _this = this;
+
+    window.setTimeout(function () {
+      return _this.editSubj(new _.LocalSubject({}));
+    }, 400);
+    _.changeView("main");
+  };
+  AlfaNotasView.prototype.saveEdit = function () {
+    new Subject().saveSubject(ko.toJS(this.editSubj()));
+    this.cancelEdit();
+    _.loadSubjects(this);
+  };
+  AlfaNotasView.prototype.deleteSubject = function () {
+    var msg = new Subject().delete(this.editSubj().name());
+    console.log(msg);
+    this.cancelEdit();
+    _.loadSubjects(this);
+  };
+  AlfaNotasView.prototype.toggleDetailView = function (id) {
+    this.subjects()[id].viewOpened(!this.subjects()[id].viewOpened());
+  };
+
+  /**
+   * Applying Binding
+   */
+  ko.applyBindings(new AlfaNotasView(), document.body);
 })();
 
 

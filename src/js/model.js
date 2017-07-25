@@ -146,11 +146,11 @@ module.exports   = function (name, n1, n2, n3, n4) {
       let subjs = dao.getSubjects();
       self = this;
       if(subjs.filter(a=>a.name === self.name).length > 0)
-        return messages.compose("subjAlreadyExists",self.name);
+        return {err: messages.compose("subjAlreadyExists",self.name)};
       
       subjs.push(simplify(this.name,this.marks));
       dao.saveSubjects(subjs);
-      return messages.compose("subjAdded",self.name);
+      return {msg: messages.compose("subjAdded",self.name)};
     },
     delete: function(name) {
       let done = false,
@@ -162,7 +162,12 @@ module.exports   = function (name, n1, n2, n3, n4) {
           return true;
       });
       dao.saveSubjects(subjs);
-      return messages.compose(((done) ? "subjDeleted" : "subjNotDeleted"),name);
+      objReturn = {};
+      if(done)
+        objReturn.msg = messages.compose("subjDeleted",name);
+      else
+        objReturn.err = messages.compose("subjNotDeleted",name);
+      return objReturn;
     }
   };
 };

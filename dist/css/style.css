@@ -1565,9 +1565,7 @@ kbd {
     widows: 3; }
   h2,
   h3 {
-    page-break-after: avoid; }
-  .print-break-inside {
-    page-break-inside: auto; } }
+    page-break-after: avoid; } }
 
 [type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], [type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], [type='url'], [type='color'],
 textarea {
@@ -1936,18 +1934,6 @@ select {
     display: inline-block;
     float: right;
     margin-left: 1em; }
-  .button.dropdown.hollow::after {
-    border-top-color: #1779ba; }
-  .button.dropdown.hollow.primary::after {
-    border-top-color: #1779ba; }
-  .button.dropdown.hollow.secondary::after {
-    border-top-color: #767676; }
-  .button.dropdown.hollow.success::after {
-    border-top-color: #3adb76; }
-  .button.dropdown.hollow.warning::after {
-    border-top-color: #ffae00; }
-  .button.dropdown.hollow.alert::after {
-    border-top-color: #cc4b37; }
   .button.arrow-only::after {
     top: -0.1em;
     float: none;
@@ -3249,7 +3235,6 @@ html.is-reveal-open,
 html.is-reveal-open body {
   min-height: 100%;
   overflow: hidden;
-  position: fixed;
   user-select: none; }
 
 .reveal-overlay {
@@ -3281,7 +3266,8 @@ html.is-reveal-open body {
   @media print, screen and (min-width: 40em) {
     .reveal {
       min-height: 0; } }
-  .reveal .column, .reveal .columns {
+  .reveal .column, .reveal .columns,
+  .reveal .columns {
     min-width: 0; }
   .reveal > :last-child {
     margin-bottom: 0; }
@@ -3854,7 +3840,7 @@ body, html {
   margin: 0; }
 
 .app__button-plus {
-  background: #1CAF9A;
+  background-color: #1CAF9A;
   border: 1px solid #1B9E89;
   color: #FFF;
   font-weight: bold;
@@ -3872,16 +3858,22 @@ body, html {
     margin: 0; }
   .app__view--edit {
     left: 100%; }
+    .app__view--edit .button {
+      display: block;
+      width: 33.3333333%;
+      float: left; }
   .app__view .button {
     margin-bottom: 5px; }
     .app__view .button.success {
-      background: #1CAF9A;
+      background-color: #1CAF9A;
       border: 1px solid #1B9E89;
       color: #FFF; }
+      .app__view .button.success:hover {
+        background-color: #1B9E89; }
   .app__view ul {
     list-style: none; }
   .app__view .prefix {
-    background: #AAA;
+    background-color: #AAA;
     border: 1px solid #cacaca;
     height: 2.4375rem;
     text-align: center;
@@ -3899,7 +3891,7 @@ body, html {
     background-color: #cacaca; }
 
 .list-item__content {
-  background: #44515d; }
+  background-color: #44515d; }
   .list-item__content th {
     background-color: #5A6A7A;
     color: #FFF;
