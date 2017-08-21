@@ -19,20 +19,20 @@ module.exports   = function (name, n1, n2, n3, n4) {
   /*************************** Functions that handle marks needed depending on what Marks they have ***************/
   const handleSubjectInN1 = (n1) => {
     if(n1+10 >= 16)
-      return {n2:(16-n1)};
+      return {n2:round(16-n1)};
     else{
-      return handleSubjectInN2(n1,10);
+      return handleSubjectInN2(n1,10,{n2:10});
     }
   };
-  const handleSubjectInN2 = (n1, n2) => {
+  const handleSubjectInN2 = (n1, n2,tmp = {}) => {
     if (isApproved(n1, n2))
       return { msg: messages.approved };
     if (n1+n2 < 6)
       return { msg: messages.reproved };
-    let tmp = {};
-    let sumN2 = n1 + n2;
+
+    let sumN2 = round(n1 + n2);
     if (sumN2 + 10 >= 18) {
-      tmp.n3 = 18 - sumN2;
+      tmp.n3 = round(18 - sumN2);//apparently 18 - 15.1 == 2.9000000000000004
       tmp.msg = messages.needsN3;
     } else {
       tmp.n3 = 10;
@@ -44,16 +44,16 @@ module.exports   = function (name, n1, n2, n3, n4) {
 
   };
   const handleSubjectInN3 = (n1, n2, n3) => {
-    let avgN3 = getAvgN3(n1, n2, n3);
+    const avgN3 = getAvgN3(n1, n2, n3);
     if (isApproved(n1, n2, n3))
       return { msg: messages.approved };
     else if (avgN3 - 12 > 0)
       return { msg: messages.reproved };
     else
-      return { n4: (12 - avgN3), msg: messages.needsN4 };
+      return { n4: round(12 - avgN3), msg: messages.needsN4 };
   };
   const handleSubjectInN4 = (n1, n2, n3, n4) => {
-    let message = (isApproved(n1, n2, n3, n4) ? messages.approved : messages.reproved);
+    const message = (isApproved(n1, n2, n3, n4) ? messages.approved : messages.reproved);
     return { msg: message };
   };
 
@@ -107,8 +107,10 @@ module.exports   = function (name, n1, n2, n3, n4) {
           return handleSubjectInN3(this.marks.n1, this.marks.n2, this.marks.n3);
         case !(!this.marks.n2):
           return handleSubjectInN2(this.marks.n1, this.marks.n2);
-        default:
+        case !(!this.marks.n1):
           return handleSubjectInN1(this.marks.n1);
+        default:
+          return {};
       }
     },
     getAllSubjects : function(){

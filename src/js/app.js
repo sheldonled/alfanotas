@@ -29,11 +29,15 @@
       }
     },
     LocalSubject: function(obj) {
+      subj = new Subject(obj.name, obj.n1, obj.n2, obj.n3, obj.n4);
       this.name = ko.observable(obj.name);
       this.n1 = ko.observable(obj.n1);
       this.n2 = ko.observable(obj.n2);
       this.n3 = ko.observable(obj.n3);
       this.n4 = ko.observable(obj.n4);
+      this.statusMsg = subj.projectMarksNeeded().msg;
+      this.marksProjected = subj.projectMarksNeeded();
+      this.isProjected = (k) => Object.keys(this.marksProjected).indexOf(k) >= 0;
       this.viewOpened = ko.observable(obj.viewOpened);
     }
   };

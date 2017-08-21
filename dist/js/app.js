@@ -99,17 +99,19 @@ module.exports = function (name, n1, n2, n3, n4) {
 
   /*************************** Functions that handle marks needed depending on what Marks they have ***************/
   var handleSubjectInN1 = function handleSubjectInN1(n1) {
-    if (n1 + 10 >= 16) return { n2: 16 - n1 };else {
-      return handleSubjectInN2(n1, 10);
+    if (n1 + 10 >= 16) return { n2: round(16 - n1) };else {
+      return handleSubjectInN2(n1, 10, { n2: 10 });
     }
   };
   var handleSubjectInN2 = function handleSubjectInN2(n1, n2) {
+    var tmp = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
     if (_isApproved(n1, n2)) return { msg: messages.approved };
     if (n1 + n2 < 6) return { msg: messages.reproved };
-    var tmp = {};
-    var sumN2 = n1 + n2;
+
+    var sumN2 = round(n1 + n2);
     if (sumN2 + 10 >= 18) {
-      tmp.n3 = 18 - sumN2;
+      tmp.n3 = round(18 - sumN2); //apparently 18 - 15.1 == 2.9000000000000004
       tmp.msg = messages.needsN3;
     } else {
       tmp.n3 = 10;
@@ -121,7 +123,7 @@ module.exports = function (name, n1, n2, n3, n4) {
   };
   var handleSubjectInN3 = function handleSubjectInN3(n1, n2, n3) {
     var avgN3 = getAvgN3(n1, n2, n3);
-    if (_isApproved(n1, n2, n3)) return { msg: messages.approved };else if (avgN3 - 12 > 0) return { msg: messages.reproved };else return { n4: 12 - avgN3, msg: messages.needsN4 };
+    if (_isApproved(n1, n2, n3)) return { msg: messages.approved };else if (avgN3 - 12 > 0) return { msg: messages.reproved };else return { n4: round(12 - avgN3), msg: messages.needsN4 };
   };
   var handleSubjectInN4 = function handleSubjectInN4(n1, n2, n3, n4) {
     var message = _isApproved(n1, n2, n3, n4) ? messages.approved : messages.reproved;
@@ -170,8 +172,10 @@ module.exports = function (name, n1, n2, n3, n4) {
           return handleSubjectInN3(this.marks.n1, this.marks.n2, this.marks.n3);
         case !!this.marks.n2:
           return handleSubjectInN2(this.marks.n1, this.marks.n2);
-        default:
+        case !!this.marks.n1:
           return handleSubjectInN1(this.marks.n1);
+        default:
+          return {};
       }
     },
     getAllSubjects: function getAllSubjects() {
@@ -264,11 +268,19 @@ module.exports = function (name, n1, n2, n3, n4) {
       }
     },
     LocalSubject: function LocalSubject(obj) {
+      var _this = this;
+
+      subj = new Subject(obj.name, obj.n1, obj.n2, obj.n3, obj.n4);
       this.name = ko.observable(obj.name);
       this.n1 = ko.observable(obj.n1);
       this.n2 = ko.observable(obj.n2);
       this.n3 = ko.observable(obj.n3);
       this.n4 = ko.observable(obj.n4);
+      this.statusMsg = subj.projectMarksNeeded().msg;
+      this.marksProjected = subj.projectMarksNeeded();
+      this.isProjected = function (k) {
+        return Object.keys(_this.marksProjected).indexOf(k) >= 0;
+      };
       this.viewOpened = ko.observable(obj.viewOpened);
     }
   };
@@ -304,10 +316,10 @@ module.exports = function (name, n1, n2, n3, n4) {
     _.changeView("edit");
   };
   AlfaNotasView.prototype.cancelEdit = function () {
-    var _this = this;
+    var _this2 = this;
 
     window.setTimeout(function () {
-      return _this.editSubj(new _.LocalSubject({}));
+      return _this2.editSubj(new _.LocalSubject({}));
     }, 400);
     _.changeView("main");
   };

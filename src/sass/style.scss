@@ -11,9 +11,15 @@ $green-darker: #1B9E89;
 $red: #DA0000;
 $blue: #5A6A7A;
 $blue-lighter:#7E90A8;
+$greyGradient: 45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 10px,rgba(0, 0, 0, 0.05) 10px,rgba(0, 0, 0, 0.05) 20px;
 
 /********************************* Mixins ************************************/
-
+@mixin rep-linear-grad($property, $expression) {
+  #{$property}: -webkit-repeating-linear-gradient(#{$expression});
+  #{$property}: -moz-repeating-linear-gradient(#{$expression});
+  #{$property}: -o-repeating-linear-gradient(#{$expression});
+  #{$property}: repeating-linear-gradient(#{$expression});
+}
 /********************************* Variables ************************************/
 * {
   -webkit-transition: all .4s linear;
@@ -129,4 +135,9 @@ body,html {
   &__content {
     margin: 0;
   }
+}
+.projected {
+  font-weight: bold;
+  background-color: $light-gray;
+  @include rep-linear-grad('background', $greyGradient);
 }

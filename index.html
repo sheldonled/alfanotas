@@ -38,12 +38,13 @@
             <th>N4</th>
           </tr>
           <tr>
-            <td data-bind="text:n1() || '&nbsp;'"></td>
-            <td data-bind="text:n2() || '&nbsp;'"></td>
-            <td data-bind="text:n3() || '&nbsp;'"></td>
-            <td data-bind="text:n4() || '&nbsp;'"></td>
+            <td data-bind="css:{projected:isProjected('n1')}, text:n1() || marksProjected.n1 || '&nbsp;'"></td>
+            <td data-bind="css:{projected:isProjected('n2')}, text:n2() || marksProjected.n2 || '&nbsp;'"></td>
+            <td data-bind="css:{projected:isProjected('n3')}, text:n3() || marksProjected.n3 || '&nbsp;'"></td>
+            <td data-bind="css:{projected:isProjected('n4')}, text:n4() || marksProjected.n4 || '&nbsp;'"></td>
           </tr>
         </table>
+        <p data-bind="text:statusMsg"></p>
         <button
           class="list-item__editbutton button expanded"
           data-bind="click:function(){$root.editSubject($index())}"
