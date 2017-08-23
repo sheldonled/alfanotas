@@ -44,7 +44,7 @@
             <td data-bind="css:{projected:isProjected('n4')}, text:n4() || marksProjected.n4 || '&nbsp;'"></td>
           </tr>
         </table>
-        <p data-bind="text:statusMsg"></p>
+        <section class="list-item__status callout" data-bind="text:statusMsg,css:getStatusClass()"></section>
         <button
           class="list-item__editbutton button expanded"
           data-bind="click:function(){$root.editSubject($index())}"
@@ -109,7 +109,7 @@
       data-bind="click:function(){$root.deleteSubject()}"
     >Deletar</li>
   </div>
-  <div id="alerts"></div>
+  <div id="messages"></div>
 </body>
 <!-- JavaScript -->
 <script src='bower_components/knockout/dist/knockout.js'></script>

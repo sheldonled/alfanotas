@@ -1,6 +1,7 @@
 (() => {
   const Subject = require('./model');  
   const Alert = require('./alert');  
+  const messages = require('./messages.js')('pt_br');
   /**
    * Local Object
    */
@@ -40,11 +41,12 @@
       this.statusMsg = subj.projectMarksNeeded().msg;
       this.marksProjected = subj.projectMarksNeeded();
       this.isProjected = (k) => Object.keys(this.marksProjected).indexOf(k) >= 0;
+      this.getStatusClass = () => (this.statusMsg === messages.reproved) ? "alert" : ((this.isProjected('n3') || this.isProjected('n4') ? "warning" : "primary"));
       this.viewOpened = ko.observable(obj.viewOpened);
     },
     addAlert: function(msg){
       document
-        .getElementById("alerts")
+        .getElementById("messages")
         .appendChild(this.alert.getDiv(msg));
     }
   };

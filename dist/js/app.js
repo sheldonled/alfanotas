@@ -63,11 +63,36 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = function (lang) {
+    switch (lang) {
+        case "pt_br":
+            var msgs = {
+                approved: "Passou!",
+                reproved: "Reprovado!",
+                needsN3: "Volte para os livros, você vai para N3!",
+                needsN4: "Não entre em pânico, mas você vai para N4!",
+                subjAlreadyExists: "A matéria %s já existe",
+                subjAdded: "Matéria %s adicionada",
+                subjDeleted: "Matéria %s deletada",
+                subjNotDeleted: "Erro ao deletar matéria %s"
+            };
+            msgs.compose = function (msg, piece) {
+                return msgs[msg].replace(/%s/ig, piece);
+            };
+            return msgs;
+    }
+};
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
 module.exports = function () {
@@ -86,15 +111,15 @@ module.exports = function () {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function (name, n1, n2, n3, n4) {
-  var dao = __webpack_require__(3)();
+  var dao = __webpack_require__(4)();
   var toNumber = function toNumber(n) {
     return Number(n) || 0;
   };
-  var messages = __webpack_require__(4)('pt_br');
+  var messages = __webpack_require__(0)('pt_br');
   /**
    * I've used this because when I was testing 
    * assert.equal(7.6, new Subject("Math",5,9,8.8).getAvgMarks());
@@ -253,12 +278,13 @@ module.exports = function (name, n1, n2, n3, n4) {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function () {
-  var Subject = __webpack_require__(1);
-  var Alert = __webpack_require__(0);
+  var Subject = __webpack_require__(2);
+  var Alert = __webpack_require__(1);
+  var messages = __webpack_require__(0)('pt_br');
   /**
    * Local Object
    */
@@ -302,10 +328,13 @@ module.exports = function (name, n1, n2, n3, n4) {
       this.isProjected = function (k) {
         return Object.keys(_this.marksProjected).indexOf(k) >= 0;
       };
+      this.getStatusClass = function () {
+        return _this.statusMsg === messages.reproved ? "alert" : _this.isProjected('n3') || _this.isProjected('n4') ? "warning" : "primary";
+      };
       this.viewOpened = ko.observable(obj.viewOpened);
     },
     addAlert: function addAlert(msg) {
-      document.getElementById("alerts").appendChild(this.alert.getDiv(msg));
+      document.getElementById("messages").appendChild(this.alert.getDiv(msg));
     }
   };
 
@@ -379,7 +408,7 @@ module.exports = function (name, n1, n2, n3, n4) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = function () {
@@ -396,31 +425,6 @@ module.exports = function () {
     getSubjects: getSubjects,
     saveSubjects: saveSubjects
   };
-};
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = function (lang) {
-    switch (lang) {
-        case "pt_br":
-            var msgs = {
-                approved: "Passou!",
-                reproved: "Reprovado!",
-                needsN3: "Volte para os livros, você vai para N3!",
-                needsN4: "Não entre em pânico, mas você vai para N4!",
-                subjAlreadyExists: "A matéria %s já existe",
-                subjAdded: "Matéria %s adicionada",
-                subjDeleted: "Matéria %s deletada",
-                subjNotDeleted: "Erro ao deletar matéria %s"
-            };
-            msgs.compose = function (msg, piece) {
-                return msgs[msg].replace(/%s/ig, piece);
-            };
-            return msgs;
-    }
 };
 
 

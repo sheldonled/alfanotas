@@ -3838,14 +3838,15 @@ body, html {
   color: #FFF;
   text-align: center;
   background-color: #DA0000;
-  margin: 0; }
+  margin: 0;
+  padding: .3em 0; }
 
 .app__button-plus {
   background-color: #1CAF9A;
-  border: 1px solid #1B9E89;
+  border: 0.07em solid #1B9E89;
   color: #FFF;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.2em;
   line-height: 0;
   margin: 0;
   cursor: pointer; }
@@ -3864,10 +3865,10 @@ body, html {
       width: 33.3333333%;
       float: left; }
   .app__view .button {
-    margin-bottom: 5px; }
+    margin-bottom: .3em; }
     .app__view .button.success {
       background-color: #1CAF9A;
-      border: 1px solid #1B9E89;
+      border: 0.07em solid #1B9E89;
       color: #FFF; }
       .app__view .button.success:hover {
         background-color: #1B9E89; }
@@ -3875,24 +3876,25 @@ body, html {
     list-style: none; }
   .app__view .prefix {
     background-color: #AAA;
-    border: 1px solid #cacaca;
-    height: 2.4375rem;
+    border: 0.07em solid #cacaca;
+    height: 2.4375em;
     text-align: center;
     display: block;
-    padding: .5rem;
+    padding: .5em;
     line-height: 1.5; }
 
 .list-item__name {
   display: block;
-  padding: 10px;
+  padding: .5em;
   background-color: #AAA;
   cursor: pointer;
-  margin-bottom: 5px; }
+  margin-bottom: .3em; }
   .list-item__name:hover {
     background-color: #cacaca; }
 
 .list-item__content {
-  background-color: #44515d; }
+  background-color: #44515d;
+  margin: 0; }
   .list-item__content th {
     background-color: #5A6A7A;
     color: #FFF;
@@ -3900,31 +3902,41 @@ body, html {
   .list-item__content td {
     text-align: center; }
 
+.list-item__status {
+  margin: 0; }
+
 .edit-item__name {
   display: block;
-  padding: 10px;
+  padding: .5em;
   background-color: #c9d0d7;
-  border-bottom: 2px solid #44515d;
+  border-bottom: 0.05em solid #44515d;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 1em;
   text-transform: uppercase; }
 
 .edit-item__content {
   margin: 0; }
 
-#alerts {
+#messages {
   position: fixed;
   bottom: 0; }
 
-.alert .close {
+.alert .close, .success .close {
   position: absolute;
-  right: 10px;
-  top: 5px; }
+  right: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  font-size: .7em;
+  line-height: 2em;
+  cursor: pointer; }
 
 .projected {
   font-weight: bold;
   background-color: #AAA;
-  background: -webkit-repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.05) 10px, rgba(0, 0, 0, 0.05) 20px);
-  background: -moz-repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.05) 10px, rgba(0, 0, 0, 0.05) 20px);
-  background: -o-repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.05) 10px, rgba(0, 0, 0, 0.05) 20px);
-  background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.05) 10px, rgba(0, 0, 0, 0.05) 20px); }
+  background: -webkit-repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0.5em, rgba(0, 0, 0, 0.05) 0.5em, rgba(0, 0, 0, 0.05) 1em);
+  background: -moz-repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0.5em, rgba(0, 0, 0, 0.05) 0.5em, rgba(0, 0, 0, 0.05) 1em);
+  background: -o-repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0.5em, rgba(0, 0, 0, 0.05) 0.5em, rgba(0, 0, 0, 0.05) 1em);
+  background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0.5em, rgba(0, 0, 0, 0.05) 0.5em, rgba(0, 0, 0, 0.05) 1em); }

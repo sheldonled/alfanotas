@@ -5,13 +5,14 @@ $white: #FFF;
 $bgcolor: #fbfbfb;
 $gray: #333;
 $gray-lighter: #cacaca;
+$gray-transp: rgba(0,0,0,0.3);
 $light-gray: #AAA;
 $green: #1CAF9A;
 $green-darker: #1B9E89;
 $red: #DA0000;
 $blue: #5A6A7A;
 $blue-lighter:#7E90A8;
-$greyGradient: 45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 10px,rgba(0, 0, 0, 0.05) 10px,rgba(0, 0, 0, 0.05) 20px;
+$greyGradient: 45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) .5em,rgba(0, 0, 0, 0.05) .5em,rgba(0, 0, 0, 0.05) 1em;
 
 /********************************* Mixins ************************************/
 @mixin rep-linear-grad($property, $expression) {
@@ -44,13 +45,14 @@ body,html {
   text-align: center;
   background-color: $red;
   margin: 0;
+  padding: .3em 0;
 }
 .app__button-plus {
   background-color: $green;
-  border: 1px solid $green-darker;
+  border: .07em solid $green-darker;
   color: $white;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.2em;
   line-height: 0;
   margin: 0;
   cursor: pointer;
@@ -72,10 +74,10 @@ body,html {
     }
   }
   .button {
-    margin-bottom: 5px;
+    margin-bottom: .3em;
     &.success {
       background-color: $green;
-      border: 1px solid $green-darker;
+      border: .07em solid $green-darker;
       color: $white;
       &:hover {
         background-color: $green-darker;
@@ -87,11 +89,11 @@ body,html {
   }
   .prefix {
     background-color: $light-gray;
-    border: 1px solid $gray-lighter;
-    height: 2.4375rem;
+    border: .07em solid $gray-lighter;
+    height: 2.4375em;
     text-align: center;
     display: block;
-    padding: .5rem;
+    padding: .5em;
     line-height: 1.5;
   }
 }
@@ -100,10 +102,10 @@ body,html {
 
   &__name {
     display: block;
-    padding: 10px;
+    padding: .5em;
     background-color: $light-gray;
     cursor: pointer;
-    margin-bottom: 5px;
+    margin-bottom: .3em;
     &:hover{
       background-color: $gray-lighter;
     }
@@ -111,6 +113,7 @@ body,html {
 
   &__content {
     background-color: darken($blue,10%);
+    margin: 0;
     th {
       background-color: $blue;
       color: $white;
@@ -120,32 +123,42 @@ body,html {
       text-align: center;
     }
   }
+  &__status {
+    margin: 0;
+  }
 }
 
 .edit-item {
 
   &__name {
     display: block;
-    padding: 10px;
+    padding: .5em;
     background-color: lighten($blue,40%);
-    border-bottom: 2px solid darken($blue,10%);
+    border-bottom: .05em solid darken($blue,10%);
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 1em;
     text-transform: uppercase;
   }
   &__content {
     margin: 0;
   }
 }
-#alerts {
+#messages {
   position: fixed;
   bottom:0;
 }
-.alert {
+.alert,.success {
   .close {
     position: absolute;
-    right: 10px;
-    top: 5px;
+    right: 0;
+    top: 0;
+    background: $gray-transp;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    font-size: .7em;
+    line-height: 2em;
+    cursor: pointer;
   }
 }
 .projected {
