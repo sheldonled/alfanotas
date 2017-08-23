@@ -1,10 +1,12 @@
 (() => {
   const Subject = require('./model');  
+  const Alert = require('./alert');  
   /**
    * Local Object
    */
   const _ = {
     scrollTop : 0,
+    alert : new Alert(),
     loadSubjects : (view) => {
       view.subjectBar("");
       view.totalSubs(new Subject().getAllSubjects());
@@ -39,6 +41,11 @@
       this.marksProjected = subj.projectMarksNeeded();
       this.isProjected = (k) => Object.keys(this.marksProjected).indexOf(k) >= 0;
       this.viewOpened = ko.observable(obj.viewOpened);
+    },
+    addAlert: function(msg){
+      document
+        .getElementById("alerts")
+        .appendChild(this.alert.getDiv(msg));
     }
   };
 
@@ -64,7 +71,8 @@
   AlfaNotasView.prototype.addSubject = function() {
     if (this.subjectBar().length <= 0)
       return;
-    console.log(new Subject(this.subjectBar()).save());
+    let msg = new Subject(this.subjectBar()).save();
+    _.addAlert(msg);
     _.loadSubjects(this);
   };
   AlfaNotasView.prototype.editSubject = function(id) {
@@ -94,4 +102,16 @@
    * Applying Binding
    */
   ko.applyBindings(new AlfaNotasView(), document.body);
+  /**
+   * Global Listenings
+   */
+  document.body.addEventListener('click', function(e){
+    if(e.target.classList.value.match(/close/ig)){
+      e
+        .target
+        .parentNode
+        .parentNode
+        .removeChild(e.target.parentNode);
+    }
+  });
 })();

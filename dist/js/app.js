@@ -63,19 +63,38 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = function () {
+  this.count = 0;
+  this.getHtml = function (data) {
+    var css = data.err ? "alert" : "success";
+    var msg = data.err ? data.err : data.msg;
+    return "<div class=\"callout " + css + " alfanotas-msg-" + this.count + "\">\n                <span class=\"close msg-" + this.count + "\">X</span>   \n                " + msg + "\n              </div>\n              ";
+  };
+  this.getDiv = function (data) {
+    var alertDiv = document.createElement("div");
+    alertDiv.innerHTML = this.getHtml(data);
+    return alertDiv.firstChild;
+  };
+};
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function (name, n1, n2, n3, n4) {
-  var dao = __webpack_require__(2)();
+  var dao = __webpack_require__(3)();
   var toNumber = function toNumber(n) {
     return Number(n) || 0;
   };
-  var messages = __webpack_require__(3)('pt_br');
+  var messages = __webpack_require__(4)('pt_br');
   /**
    * I've used this because when I was testing 
    * assert.equal(7.6, new Subject("Math",5,9,8.8).getAvgMarks());
@@ -234,16 +253,18 @@ module.exports = function (name, n1, n2, n3, n4) {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function () {
-  var Subject = __webpack_require__(0);
+  var Subject = __webpack_require__(1);
+  var Alert = __webpack_require__(0);
   /**
    * Local Object
    */
   var _ = {
     scrollTop: 0,
+    alert: new Alert(),
     loadSubjects: function loadSubjects(view) {
       view.subjectBar("");
       view.totalSubs(new Subject().getAllSubjects());
@@ -282,6 +303,9 @@ module.exports = function (name, n1, n2, n3, n4) {
         return Object.keys(_this.marksProjected).indexOf(k) >= 0;
       };
       this.viewOpened = ko.observable(obj.viewOpened);
+    },
+    addAlert: function addAlert(msg) {
+      document.getElementById("alerts").appendChild(this.alert.getDiv(msg));
     }
   };
 
@@ -308,7 +332,8 @@ module.exports = function (name, n1, n2, n3, n4) {
    */
   AlfaNotasView.prototype.addSubject = function () {
     if (this.subjectBar().length <= 0) return;
-    console.log(new Subject(this.subjectBar()).save());
+    var msg = new Subject(this.subjectBar()).save();
+    _.addAlert(msg);
     _.loadSubjects(this);
   };
   AlfaNotasView.prototype.editSubject = function (id) {
@@ -342,11 +367,19 @@ module.exports = function (name, n1, n2, n3, n4) {
    * Applying Binding
    */
   ko.applyBindings(new AlfaNotasView(), document.body);
+  /**
+   * Global Listenings
+   */
+  document.body.addEventListener('click', function (e) {
+    if (e.target.classList.value.match(/close/ig)) {
+      e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    }
+  });
 })();
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = function () {
@@ -367,7 +400,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = function (lang) {

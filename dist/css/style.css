@@ -3827,7 +3827,8 @@ body, html {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: #fbfbfb; }
+  background-color: #fbfbfb;
+  position: relative; }
 
 .clear {
   clear: both; }
@@ -3910,6 +3911,15 @@ body, html {
 
 .edit-item__content {
   margin: 0; }
+
+#alerts {
+  position: fixed;
+  bottom: 0; }
+
+.alert .close {
+  position: absolute;
+  right: 10px;
+  top: 5px; }
 
 .projected {
   font-weight: bold;
