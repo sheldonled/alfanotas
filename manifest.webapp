@@ -1,7 +1,7 @@
 {
 	"name" : "Alfa Notas",
-	"version" : "1.5",
-	"description" : "Aplicativo para gestão de notas",
+	"version" : "2.0.0",
+	"description" : "Aplicativo para gestão de notas da UniAlfa",
 	"launch_path" : "/index.html",
 	"permissions" : {
 		"storage" : {
@@ -9,8 +9,8 @@
 		}
 	},
 	"developer" : {
-		"name" : "Led Labs",
-		"url" : "http://www.ledlabs.com.br"
+		"name" : "Sheldon Led",
+		"url" : "http://sheldonled.com"
 	},
 	"icons" : {
 		"60" : "/assets/img/alfanotas_60.png",

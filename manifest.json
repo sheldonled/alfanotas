@@ -1,8 +1,8 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 5,
     "name": "Alfa Notas",
-    "version": "1.7",
-    "minimum_chrome_version": "23",
+    "version": "2.0.0",
+    "minimum_chrome_version": "50",
     "icons": {
         "16": "assets/img/alfanotas_60.png",
         "128": "assets/img/alfanotas_128.png"

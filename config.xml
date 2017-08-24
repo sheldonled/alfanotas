@@ -1,23 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns		= "http://www.w3.org/ns/widgets"
-	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		= "br.com.ledlabs.alfanotas"
-	version 	= "1.7">
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "br.com.ledlabs.alfanotas"
+    versionCode = "70"
+    version     = "2.0.0" >
 	<name>Alfa Notas</name>
 
 	<description>
-		Um aplicativo para facilitar o cálculo de notas e médias dos alunos das faculdades Alfa
+		Um aplicativo para facilitar o cálculo de notas e médias dos alunos da UniAlfa Goiania
 	</description>
 
-	<author href="http://www.ledlabs.com.br"
+	<author href="http://sheldonled.com"
 		email="sheldonled.ms@gmail.com">
-		Led Labs
+		Sheldon Led
 	</author>
 
     <icon src="assets/img/icon.png" />
 	<icon src="assets/img/icon.png" gap:role="default" />
 
+   <content src="index.html"></content>
+   <access origin="*"></access>
+
+	<preference name="phonegap-version" value="cli-6.0.0" />
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/device"/>
     <preference name="fullscreen"  value="true" />
