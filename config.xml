@@ -21,9 +21,9 @@
    <content src="index.html"></content>
    <access origin="*"></access>
 
-	<preference name="phonegap-version" value="cli-6.0.0" />
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/device"/>
     <preference name="fullscreen"  value="true" />
 	<preference name="orientation" value="portrait" />
+	<preference name="phonegap-version" value="cli-6.5.0" />
 </widget>
