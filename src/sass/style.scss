@@ -39,6 +39,13 @@ body,html {
 .clear {
   clear:both;
 }
+.app {
+  visibility: hidden;
+}
+.nojs {
+  width: 100%;
+  text-align: center;
+}
 .app__title {
   font-weight: bold;
   color: $white;
@@ -146,8 +153,11 @@ body,html {
 #messages {
   position: fixed;
   bottom:0;
-}
-.alert,.success {
+  width: 98%;
+  margin: 0 1%;
+  .callout {
+    margin: 0;
+  }
   .close {
     position: absolute;
     right: 0;

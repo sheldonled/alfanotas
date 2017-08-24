@@ -33,8 +33,7 @@ require('load-grunt-tasks')(grunt);
       files: {
         src: ['Gruntfile.js',  'test/*.js']
       },
-      beforeconcat: 'src/js/*.js',
-      afterconcat: 'dist/js/app.js'
+      beforeconcat: 'src/js/*.js'
     },
     uglify: {
       my_target: {

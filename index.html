@@ -19,11 +19,11 @@
 </head>
 <body>
   <h1 class="app__title">Alfa Notas</h1>
-  <div class="input-group">
+  <div class="app input-group">
     <input class="input-group-field app__bar-subject" type="text" data-bind="textInput: subjectBar">
     <span class="input-group-label app__button-plus" data-bind="click: addSubject">+</span>
   </div>
-  <ul class="app__view app__view--main" data-bind="foreach:subjects">
+  <ul class="app app__view app__view--main" data-bind="foreach:subjects">
     <li class="list-item" data-bind="css:'item__'+$index()">
       <span 
         class="list-item__name"
@@ -109,9 +109,9 @@
       data-bind="click:function(){$root.deleteSubject()}"
     >Deletar</li>
   </div>
+  <div class="nojs">Carregando...</div>
   <div id="messages"></div>
 </body>
 <!-- JavaScript -->
-<script src='bower_components/knockout/dist/knockout.js'></script>
 <script src='dist/js/app.js'></script>
 </html>

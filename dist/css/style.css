@@ -3833,6 +3833,13 @@ body, html {
 .clear {
   clear: both; }
 
+.app {
+  visibility: hidden; }
+
+.nojs {
+  width: 100%;
+  text-align: center; }
+
 .app__title {
   font-weight: bold;
   color: #FFF;
@@ -3919,19 +3926,22 @@ body, html {
 
 #messages {
   position: fixed;
-  bottom: 0; }
-
-.alert .close, .success .close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background: rgba(0, 0, 0, 0.3);
-  width: 2em;
-  height: 2em;
-  text-align: center;
-  font-size: .7em;
-  line-height: 2em;
-  cursor: pointer; }
+  bottom: 0;
+  width: 98%;
+  margin: 0 1%; }
+  #messages .callout {
+    margin: 0; }
+  #messages .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.3);
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    font-size: .7em;
+    line-height: 2em;
+    cursor: pointer; }
 
 .projected {
   font-weight: bold;
