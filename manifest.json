@@ -1,14 +1,14 @@
 {
-    "manifest_version": 5,
+    "manifest_version": 2,
     "name": "Alfa Notas",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "minimum_chrome_version": "50",
     "icons": {
-        "16": "assets/img/alfanotas_60.png",
-        "128": "assets/img/alfanotas_128.png"
+        "16": "img/alfanotas_60.png",
+        "128": "img/alfanotas_128.png"
     },
     "browser_action": {
-        "default_icon": "assets/img/alfanotas_128.png",
+        "default_icon": "img/alfanotas_128.png",
         "default_title": "Alfa Notas",
         "default_popup": "index.html"
     },

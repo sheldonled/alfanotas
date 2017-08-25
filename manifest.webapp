@@ -13,8 +13,8 @@
 		"url" : "http://sheldonled.com"
 	},
 	"icons" : {
-		"60" : "/assets/img/alfanotas_60.png",
-		"128" : "/assets/img/alfanotas_128.png"
+		"60" : "/img/alfanotas_60.png",
+		"128" : "/img/alfanotas_128.png"
 	},
     "default_locale": "pt-BR"
 }

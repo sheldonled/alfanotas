@@ -15,8 +15,8 @@
 		Sheldon Led
 	</author>
 
-    <icon src="assets/img/icon.png" />
-	<icon src="assets/img/icon.png" gap:role="default" />
+    <icon src="img/icon.png" />
+	<icon src="img/icon.png" gap:role="default" />
 
    <content src="index.html"></content>
    <access origin="*"></access>
