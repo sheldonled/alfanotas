@@ -37,7 +37,7 @@
             <th>N3</th>
             <th>N4</th>
           </tr>
-          <tr>
+          <tr class="grades">
             <td data-bind="css:{projected:isProjected('n1')}, text:n1() || marksProjected.n1 || '&nbsp;'"></td>
             <td data-bind="css:{projected:isProjected('n2')}, text:n2() || marksProjected.n2 || '&nbsp;'"></td>
             <td data-bind="css:{projected:isProjected('n3')}, text:n3() || marksProjected.n3 || '&nbsp;'"></td>
@@ -56,43 +56,27 @@
     <span class="edit-item__name" data-bind="text:name"></span>
     <ul class="edit-item__content">
       <li>
-        <div class="row collapse">
-          <div class="small-2 columns">
-            <span class="prefix">N1:</span>
-          </div>
-          <div class="small-10 columns">
-            <input class="edit-item__value" type="text" data-bind="value:n1"></input>
-          </div>
+        <div class="collapse">
+          <span class="small-2">N1:</span>
+          <input class="edit-item__value small-10" type="text" data-bind="value:n1"></input>
         </div>
       </li>
       <li>
-        <div class="row collapse">
-          <div class="small-2 columns">
-            <span class="prefix">N2:</span>
-          </div>
-          <div class="small-10 columns">
-            <input class="edit-item__value" type="text" data-bind="value:n2"></input>
-          </div>
+        <div class="collapse">
+          <span class="small-2">N2:</span>
+          <input class="edit-item__value small-10" type="text" data-bind="value:n2"></input>
         </div>
       </li>
       <li>
-        <div class="row collapse">
-          <div class="small-2 columns">
-            <span class="prefix">N3:</span>
-          </div>
-          <div class="small-10 columns">
-            <input class="edit-item__value" type="text" data-bind="value:n3"></input>
-          </div>
+        <div class="collapse">
+          <span class="small-2">N3:</span>
+          <input class="edit-item__value small-10" type="text" data-bind="value:n3"></input>
         </div>
       </li>
       <li>
-        <div class="row collapse">
-          <div class="small-2 columns">
-            <span class="prefix">N4:</span>
-          </div>
-          <div class="small-10 columns">
-            <input class="edit-item__value" type="text" data-bind="value:n4"></input>
-          </div>
+        <div class="collapse">
+          <span class="small-2">N4:</span>
+          <input class="edit-item__value small-10" type="text" data-bind="value:n4"></input>
         </div>
       </li>
     </ul>

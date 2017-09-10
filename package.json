@@ -4,6 +4,9 @@
   "description": "Stores the grads of a student at UniAlfa(Goiania) and says if they'll need a retake test",
   "main": "index.html",
   "scripts": {
+    "start": "node nodeServer.js",
+    "build": "grunt",
+    "watch": "grunt watch",
     "test": "mocha"
   },
   "repository": {
@@ -35,6 +38,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^2.0.0",
     "grunt-webpack": "^2.0.1",
+    "knockout": "^3.4.2",
     "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.2.0",
     "webpack": "^2.2.1"

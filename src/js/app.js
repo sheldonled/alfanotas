@@ -3,8 +3,8 @@
     const Subject = require('./model');  
     const Alert = require('./alert');  
     const messages = require('./messages.js')('pt_br');
-    const ko = require('../../bower_components/knockout/dist/knockout.js');
-
+    const ko = require('../../node_modules/knockout/build/output/knockout-latest.js');
+    
     /**
      * Helper
      */
