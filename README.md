@@ -1,22 +1,57 @@
-alfanotas
+Alfanotas
 =========
+Alfanotas is a webapplication built in 2014 to practice Web Mobile Development. It was rebuilt from scratch in 2017 again for practice.
 
-Alfa Notas é um aplicativo que facilita o cálculo de média para alunos das Faculdades Alfa.
+It stores the grads of a student at UniAlfa(Goiania) and says if they'll need a retake test
 
-* Introdução
+## Summary
+1. [Descrição em Português](#descrição-em-português)
+2. [Technical Notes](#technical-notes)
+3. [TODO](#todo)
 
-Existem 4 provas no método de avaliação das faculdades Alfa, nomeadas por N# onde # é a ordem delas. A N1 e N2 são as obrigatórias, onde a média de aprovação é 8,0 e a média mínima para não reprovação é 3.
+## Descrição em Português
 
-Ou seja se o aluno somar mais de 6 pontos na N1 e N2 ele não será reprovado, mas precisará fazer a N3. Se a soma for igual ou maior a 16 (Notas maiores ou iguais a 8) ele será aprovado sem necessidade de fazer N3.
+Alfa Notas é um aplicativo que facilita o cálculo de média para alunos da UniAlfa (Faculdades Alfa - Goiania).
 
-Na N3, a media segue normalmente, porém é necessário ter média 6,0 para ser aprovado, e não mais 8,0. Se a soma das 3 provas for maior ou igual a 18,0 então o aluno é aprovado, senão ele terá que fazer a N4, uma prova equivalente à recuperação do ensino médio.
+### Introdução
 
-Na N4 é um pouco diferente. Primeiro obtem-se a média (N1+N2+N3) e depois, esse valor é somado à nota da N4 e dividido por 2. Para essa média também é necessário obter nota maior que 6,0 para aprovação.
+Existem 4 momentos de avaliação durante um período/semestre na UniAlfa: N1,N2,N3 e N4. A N1 e N2 são as obrigatórias e compostas por um teste formal que vale 8 dos 10 pontos e os outros 2 pontos são a avaliação processual, que pode ser tarefa de casa, seminários ou qualquer coisa que o professor decidir.
 
-* Regras
+Se o aluno conseguir média 8 na N1 e N2, ele já é aprovado nessa matéria. Se tiver média menor que 3 é reprovado diretamente. Se nenhuma dessas ocasiões ocorrerem o aluno precisará fazer N3.
 
-1- N1+N2 : {se menor ou igual a 6 = reprovado; Se maior ou igual a 16 = aprovado; Se entre 6 e 16, fará N3; }
+A N3 não é uma recuperação ainda, mas se o aluno não conseguir média 6.0 nessas 3 provas ele precisará fazer N4. A N3 e N4 são apenas uma prova comum, valendo 0 a 10. A média para aprovacação é 6.0 e as regras de cálculo são as seguintes:
 
-2- N1+N2+N3 : { Se maior ou igual a 18 = aprovado; Se menor que 18, fará N4; }
+### Regras
 
-3- { [(N1+N2+N3)/3] + N4 } : { Se maior ou igual a 12 = aprovado; Se menor que 12 = reprovado }
+1. (N1+N2)/2 : {se menor ou igual a 3 == **reprovado**; Se maior ou igual a 8 == **aprovado**; Se entre 3 e 8, fará N3; }
+2. (N1+N2+N3)/3 : { Se maior ou igual a 6 == **aprovado**; Se menor que 6, fará N4; }
+3. { [(N1+N2+N3)/3] + N4 }/2 : { Se maior ou igual a 6 == **aprovado**; Se menor que 12 == **reprovado** }
+
+Apesar de serem contas simples, pode ser confuso para muitas pessoas, por isso o aplicativo tem bastante aceitação.
+
+## Technical Notes
+
+To run this app the only thing you need to do is download this repository and open the index.html file on any good browser (I didn't test it on IE).
+
+If you want to take a look in the code and change it, you need to setup some things. Thankfully, everything is inside the package.json file and you need to run only 1 command:
+```
+npm install
+```
+
+After the changes, you need to run:
+```
+npm run build
+```
+
+And this is pretty much it 😉
+
+Maybe you'll need to install something else, but it'll depend on how much things you already have in your computer.
+
+## TODO
+- [x] Get rid of bower
+- [x] Make alerts disappear after a while
+- [ ] Improve code style
+- [ ] Replace JSHint with ESLint
+- [ ] Add more alerts to comunicate better with the user
+- [ ] Cover all functions with unit tests
+- [ ] Implement Service Workers
