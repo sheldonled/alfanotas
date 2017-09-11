@@ -96,16 +96,38 @@ module.exports = function (lang) {
 /***/ (function(module, exports) {
 
 module.exports = function () {
-  this.count = 0;
+  var setRemoveAction = function setRemoveAction(el) {
+    var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+    var fading = function fading() {
+      el.style.opacity = 0;
+      setTimeout(function () {
+        try {
+          el.parentNode.removeChild(el);
+        } catch (e) {}
+      }, 800);
+    };
+    setTimeout(fading, wait ? 1500 : 0);
+  };
   this.getHtml = function (data) {
     var css = data.err ? "alert" : "success";
     var msg = data.err ? data.err : data.msg;
-    return "<div class=\"callout " + css + " alfanotas-msg-" + this.count + "\">\n                <span class=\"close msg-" + this.count + "\">X</span>   \n                " + msg + "\n              </div>\n              ";
+    return "<div class=\"callout " + css + "\">\n                <span class=\"close\">X</span>   \n                " + msg + "\n              </div>\n              ";
   };
   this.getDiv = function (data) {
     var alertDiv = document.createElement("div");
     alertDiv.innerHTML = this.getHtml(data);
+    setRemoveAction(alertDiv.firstChild, true);
     return alertDiv.firstChild;
+  };
+  this.closeEvent = function (el) {
+    if (!el || el.nodeName.toLocaleLowerCase === "body") return;
+
+    if (el.classList.contains("callout")) {
+      setRemoveAction(el);
+      return;
+    }
+    this.closeEvent(el.parentNode);
   };
 };
 
@@ -545,9 +567,7 @@ new a.P;var b=new a.xb;0<b.ed&&a.Fb(b);a.b("jqueryTmplTemplateEngine",a.xb)})()}
      * Global Listenings
      */
     document.body.addEventListener('click', function (e) {
-      if (e.target.classList.value.match(/close/ig)) {
-        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-      }
+      if (e.target.classList.contains("close")) new Alert().closeEvent(e.target);
     });
   } catch (e) {
     document.querySelectorAll('.nojs')[0].textContent = "Algo não está funcionando :("; //Literal text to not depend on message.js

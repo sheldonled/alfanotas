@@ -116,13 +116,8 @@
      * Global Listenings
      */
     document.body.addEventListener('click', function(e){
-      if(e.target.classList.value.match(/close/ig)){
-        e
-          .target
-          .parentNode
-          .parentNode
-          .removeChild(e.target.parentNode);
-      }
+      if(e.target.classList.contains("close"))
+          new Alert().closeEvent(e.target);
     });
   }
   catch(e){
